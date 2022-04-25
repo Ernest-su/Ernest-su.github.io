@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ernest的Blog">
+<meta property="og:url" content="https://ernest-su.github.io/page/2/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Ernest">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ernest-su.github.io/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/nice-website/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/nice-website/" class="post-title-link" itemprop="url">宝藏网址</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-03 11:12:37 / 修改时间：11:51:30" itemprop="dateCreated datePublished" datetime="2021-02-03T11:12:37+08:00">2021-02-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h1><ul>
+<li>note.js 安装版本切换工具</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/jasongin/nvs/">https://github.com/jasongin/nvs/</a></p>
+</blockquote>
+<ul>
+<li>缓动函数速查表</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://easings.net/cn">https://easings.net/cn</a></p>
+</blockquote>
+<h1 id="资源类"><a href="#资源类" class="headerlink" title="资源类"></a>资源类</h1><ul>
+<li>它不仅提供免费的高清视频素材，还有插画，音乐，PR 模版等，相当全面</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mixkit.co/">https://mixkit.co/</a></p>
+</blockquote>
+<ul>
+<li>8000个已分类好的扁平化图标(PNG/SVG/WEBFONT)</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.shejidaren.com/8000-flat-icons.html">https://www.shejidaren.com/8000-flat-icons.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/openwrt_mwan3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/openwrt_mwan3/" class="post-title-link" itemprop="url">openwrt多拨笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-01 22:12:37" itemprop="dateCreated datePublished" datetime="2019-08-01T22:12:37+08:00">2019-08-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 11:51:35" itemprop="dateModified" datetime="2021-02-03T11:51:35+08:00">2021-02-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>公司对每个ip限速300k，平时下载文件甚至打开网页都很慢，之前斐讯0元购撸了个k2路由器，刷了openwrt，配了多拨，但是后来重新刷路由器固件后多拨配置丢了，年久未搞，配了很久都单线多拨失败。今日经过百度多篇文章，最终根据文章的图文操作，弄清楚多拨会用到哪些配置文件，特此记录下来，往后搞单线多拨只需按照笔记无脑敲命令就行了，甚至连luci都不需要。</p>
+<p>首先更新openwrt的软件源</p>
+<p>opkg update</p>
+<p>然后按照必要的文件</p>
+<p>opkg install luci kmod-macvlan luci-app-mwan3</p>
+<p>在/etc/rc.local中exit上一行加入一下配置</p>
+<p>sleep 6<br>ip link add link eth0.2 name vth1 type macvlan<br>ifconfig vth1 up</p>
+<p>ip link add link eth0.2 name vth2 type macvlan<br>ifconfig vth2 up</p>
+<p>ip link add link eth0.2 name vth3 type macvlan<br>ifconfig vth3 up</p>
+<p>ip link add link eth0.2 name vth4 type macvlan<br>ifconfig vth4 up</p>
+<p>ip link add link eth0.2 name vth5 type macvlan<br>ifconfig vth5 up</p>
+<p>ip link add link eth0.2 name vth6 type macvlan<br>ifconfig vth6 up</p>
+<p>在/etc/config/network中，把原有的config interface各项去掉， 修改成一下版本：<br>//这个wan修改一下</p>
+<p>config interface ‘wan’<br>        option proto ‘dhcp’<br>        option ifname ‘eth0.2’<br>        option metric ‘20’</p>
+<p>config interface ‘vwan1’<br>        option proto ‘dhcp’<br>        option ifname ‘vth1’<br>        option metric ‘21’</p>
+<p>config interface ‘vwan2’<br>        option proto ‘dhcp’<br>        option ifname ‘vth2’<br>        option metric ‘22’   </p>
+<p>config interface ‘vwan3’<br>        option proto ‘dhcp’<br>        option ifname ‘vth3’<br>        option metric ‘23’</p>
+<p>config interface ‘vwan4’<br>        option proto ‘dhcp’<br>        option ifname ‘vth4’<br>        option metric ‘24’        </p>
+<p>config interface ‘vwan5’<br>        option proto ‘dhcp’<br>        option ifname ‘vth5’<br>        option metric ‘25’</p>
+<p>config interface ‘vwan6’<br>        option proto ‘dhcp’<br>        option ifname ‘vth6’<br>        option metric ‘26’        </p>
+<p>在 /etc/config/firewall 中</p>
+<p>config zone<br>option name ‘wan’<br>option input ‘REJECT’<br>option output ‘ACCEPT’<br>option forward ‘REJECT’<br>option masq ‘1’<br>option mtu_fix ‘1’<br>option network ‘wan wan6 vwan1 vwan2 vwan3 vwan4 vwan5 vwan6’</p>
+<p>在 /etc/config/mwan3 中</p>
+<p>config interface ‘vwan1’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config interface ‘vwan2’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config interface ‘vwan3’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config interface ‘vwan4’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config interface ‘vwan5’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config interface ‘vwan6’<br>        option enabled ‘1’<br>        option initial_state ‘online’<br>        option family ‘ipv4’<br>        option track_method ‘ping’<br>        option reliability ‘1’<br>        option count ‘1’<br>        option size ‘56’<br>        option max_ttl ‘60’<br>        option check_quality ‘0’<br>        option timeout ‘2’<br>        option interval ‘5’<br>        option failure_interval ‘5’<br>        option recovery_interval ‘5’<br>        option down ‘3’<br>        option up ‘3’<br>        list track_ip ‘8.8.8.8’</p>
+<p>config member ‘mwan’<br>        option interface ‘wan’</p>
+<p>config member ‘mvwan1’<br>        option interface ‘vwan1’</p>
+<p>config member ‘mvwan2’<br>        option interface ‘vwan2’     </p>
+<p>config member ‘mvwan3’<br>        option interface ‘vwan3’</p>
+<p>config member ‘mvwan4’<br>        option interface ‘vwan4’   </p>
+<p>config member ‘mvwan5’<br>        option interface ‘vwan5’</p>
+<p>config member ‘mvwan6’<br>        option interface ‘vwan6’              </p>
+<p>config policy ‘balanced’<br>        option last_resort ‘default’<br>        list use_member ‘mwan’<br>        list use_member ‘mvwan1’<br>        list use_member ‘mvwan2’<br>        list use_member ‘mvwan3’<br>        list use_member ‘mvwan4’<br>        list use_member ‘mvwan5’<br>        list use_member ‘mvwan6’</p>
+<p> 最后重启一下路由器</p>
+<p> reboot</p>
+<p>​<br>使用大文件测速专用下载测试一下</p>
+<p>100g   <a target="_blank" rel="noopener" href="http://repos.mia.lax-noc.com/speedtests/100gb.bin">http://repos.mia.lax-noc.com/speedtests/100gb.bin</a><br>10t       <a target="_blank" rel="noopener" href="http://repos.mia.lax-noc.com/speedtests/10tb.bin">http://repos.mia.lax-noc.com/speedtests/10tb.bin</a>        </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/Git-Flow-best-practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Git-Flow-best-practice/" class="post-title-link" itemprop="url">Git 在团队中的最佳实践--如何正确使用Git Flow</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-03-29 15:56:58 / 修改时间：18:37:24" itemprop="dateCreated datePublished" datetime="2019-03-29T15:56:58+08:00">2019-03-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Git的优点"><a href="#Git的优点" class="headerlink" title="Git的优点"></a>Git的优点</h2><p>Git的优点很多，但是这里只列出我认为非常突出的几点。</p>
+<ol>
+<li>由于是分布式，所有本地库包含了远程库的所有内容。</li>
+<li>优秀的分支模型，打分支以及合并分支，机器方便。</li>
+<li>快速，在这个时间就是金钱的时代，Git由于代码都在本地，打分支和合并分支机器快速，使用个SVN的能深刻体会到这种优势。</li>
+</ol>
+<p>感兴趣的，可以去看一下Git本身的设计，内在的架构体现了很多的优势，不愧是出资天才程序员Linus (Linux之父) 之手</p>
+<h2 id="版本管理的挑战"><a href="#版本管理的挑战" class="headerlink" title="版本管理的挑战"></a>版本管理的挑战</h2><p>虽然有这么优秀的版本管理工具，但是我们面对版本管理的时候，依然有非常大得挑战，我们都知道大家工作在同一个仓库上，那么彼此的代码协作必然带来很多问题和挑战，如下：</p>
+<ol>
+<li>如何开始一个Feature的开发，而不影响别的Feature？</li>
+<li>由于很容易创建新分支，分支多了如何管理，时间久了，如何知道每个分支是干什么的？</li>
+<li>哪些分支已经合并回了主干？</li>
+<li>如何进行Release的管理？开始一个Release的时候如何冻结Feature, 如何在Prepare Release的时候，开发人员可以继续开发新的功能？</li>
+<li>线上代码出Bug了，如何快速修复？而且修复的代码要包含到开发人员的分支以及下一个Release?</li>
+</ol>
+<p>大部分开发人员现在使用Git就只是用三个甚至两个分支，一个是Master, 一个是Develop, 还有一个是基于Develop打得各种分支。这个在小项目规模的时候还勉强可以支撑，因为很多人做项目就只有一个Release, 但是人员一多，而且项目周期一长就会出现各种问题。</p>
+<h2 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h2><p>就像代码需要代码规范一样，代码管理同样需要一个清晰的流程和规范</p>
+<p>Vincent Driessen 同学为了解决这个问题提出了 <a target="_blank" rel="noopener" href="http://nvie.com/posts/a-successful-git-branching-model/">A Successful Git Branching Model</a></p>
+<p>下面是Git Flow的流程图</p>
+<p><img src="/images/o_git-flow-nvie.png" alt="img"></p>
+<p>上面的图你理解不了？ 没关系，这不是你的错，我觉得这张图本身有点问题，这张图应该左转90度，大家应该就很用以理解了。</p>
+<h3 id="Git-Flow常用的分支"><a href="#Git-Flow常用的分支" class="headerlink" title="Git Flow常用的分支"></a>Git Flow常用的分支</h3><ul>
+<li>Production 分支</li>
+</ul>
+<p>也就是我们经常使用的Master分支，这个分支最近发布到生产环境的代码，最近发布的Release， 这个分支只能从其他分支合并，不能在这个分支直接修改</p>
+<ul>
+<li>Develop 分支</li>
+</ul>
+<p>这个分支是我们是我们的主开发分支，包含所有要发布到下一个Release的代码，这个主要合并与其他分支，比如Feature分支</p>
+<ul>
+<li>Feature 分支</li>
+</ul>
+<p>这个分支主要是用来开发一个新的功能，一旦开发完成，我们合并回Develop分支进入下一个Release</p>
+<ul>
+<li>Release分支</li>
+</ul>
+<p>当你需要一个发布一个新Release的时候，我们基于Develop分支创建一个Release分支，完成Release后，我们合并到Master和Develop分支</p>
+<ul>
+<li>Hotfix分支</li>
+</ul>
+<p>当我们在Production发现新的Bug时候，我们需要创建一个Hotfix, 完成Hotfix后，我们合并回Master和Develop分支，所以Hotfix的改动会进入下一个Release</p>
+<h3 id="Git-Flow如何工作"><a href="#Git-Flow如何工作" class="headerlink" title="Git Flow如何工作"></a>Git Flow如何工作</h3><h4 id="初始分支"><a href="#初始分支" class="headerlink" title="初始分支"></a>初始分支</h4><p>所有在Master分支上的Commit应该Tag</p>
+<p><img src="/images/o_git-workflow-release-cycle-1historical.png" alt="img"></p>
+<h4 id="Feature-分支"><a href="#Feature-分支" class="headerlink" title="Feature 分支"></a>Feature 分支</h4><p>分支名 feature/*</p>
+<p>Feature分支做完后，必须合并回Develop分支, 合并完分支后一般会删点这个Feature分支，但是我们也可以保留</p>
+<p><img src="/images/o_git-workflow-release-cycle-2feature.png" alt="img"></p>
+<h4 id="Release分支"><a href="#Release分支" class="headerlink" title="Release分支"></a>Release分支</h4><p>分支名 release/*</p>
+<p>Release分支基于Develop分支创建，打完Release分之后，我们可以在这个Release分支上测试，修改Bug等。同时，其它开发人员可以基于开发新的Feature (记住：一旦打了Release分支之后不要从Develop分支上合并新的改动到Release分支)</p>
+<p>发布Release分支时，合并Release到Master和Develop， 同时在Master分支上打个Tag记住Release版本号，然后可以删除Release分支了。</p>
+<p><img src="/images/o_git-workflow-release-cycle-3release.png" alt="img"></p>
+<h4 id="维护分支-Hotfix"><a href="#维护分支-Hotfix" class="headerlink" title="维护分支 Hotfix"></a>维护分支 Hotfix</h4><p>分支名 hotfix/*</p>
+<p>hotfix分支基于Master分支创建，开发完后需要合并回Master和Develop分支，同时在Master上打一个tag</p>
+<p><img src="/images/o_git-workflow-release-cycle-4maintenance.png" alt="img"></p>
+<h3 id="Git-Flow代码示例"><a href="#Git-Flow代码示例" class="headerlink" title="Git Flow代码示例"></a>Git Flow代码示例</h3><p>a. 创建develop分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch develop</span><br><span class="line">git push -u origin develop    </span><br></pre></td></tr></table></figure>
+
+<p>b. 开始新Feature开发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature develop</span><br><span class="line"># Optionally, push branch to origin:</span><br><span class="line">git push -u origin some-feature    </span><br><span class="line"></span><br><span class="line"># 做一些改动    </span><br><span class="line">git status</span><br><span class="line">git add some-file</span><br><span class="line">git commit    </span><br></pre></td></tr></table></figure>
+
+<p>c. 完成Feature</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git pull origin develop</span><br><span class="line">git checkout develop</span><br><span class="line">git merge --no-ff some-feature</span><br><span class="line">git push origin develop</span><br><span class="line"></span><br><span class="line">git branch -d some-feature</span><br><span class="line"></span><br><span class="line"># If you pushed branch to origin:</span><br><span class="line">git push origin --delete some-feature    </span><br></pre></td></tr></table></figure>
+
+<p>d. 开始Relase</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b release-0.1.0 develop</span><br><span class="line"></span><br><span class="line"># Optional: Bump version number, commit</span><br><span class="line"># Prepare release, commit</span><br></pre></td></tr></table></figure>
+
+<p>e. 完成Release</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge --no-ff release-0.1.0</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">git checkout develop</span><br><span class="line">git merge --no-ff release-0.1.0</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">git branch -d release-0.1.0</span><br><span class="line"></span><br><span class="line"># If you pushed branch to origin:</span><br><span class="line">git push origin --delete release-0.1.0   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git tag -a v0.1.0 master</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+
+<p>f. 开始Hotfix</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b hotfix-0.1.1 master    </span><br></pre></td></tr></table></figure>
+
+<p>g. 完成Hotfix</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge --no-ff hotfix-0.1.1</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git checkout develop</span><br><span class="line">git merge --no-ff hotfix-0.1.1</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">git branch -d hotfix-0.1.1</span><br><span class="line"></span><br><span class="line">git tag -a v0.1.1 master</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+
+<h3 id="Git-flow工具"><a href="#Git-flow工具" class="headerlink" title="Git flow工具"></a>Git flow工具</h3><p>实际上，当你理解了上面的流程后，你完全不用使用工具，但是实际上我们大部分人很多命令就是记不住呀，流程就是记不住呀，肿么办呢？</p>
+<p>总有聪明的人创造好的工具给大家用, 那就是Git flow script.</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
+<li>OS X</li>
+</ul>
+<p>brew install git-flow</p>
+<ul>
+<li>Linux</li>
+</ul>
+<p>apt-get install git-flow</p>
+<ul>
+<li>Windows</li>
+</ul>
+<p>wget -q -O - –no-check-certificate <a target="_blank" rel="noopener" href="https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh">https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh</a> | bash</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ul>
+<li><strong>初始化:</strong> git flow init</li>
+<li><strong>开始新Feature:</strong> git flow feature start MYFEATURE</li>
+<li><strong>Publish一个Feature(也就是push到远程):</strong> git flow feature publish MYFEATURE</li>
+<li><strong>获取Publish的Feature:</strong> git flow feature pull origin MYFEATURE</li>
+<li><strong>完成一个Feature:</strong> git flow feature finish MYFEATURE</li>
+<li><strong>开始一个Release:</strong> git flow release start RELEASE [BASE]</li>
+<li><strong>Publish一个Release:</strong> git flow release publish RELEASE</li>
+<li><strong>发布Release:</strong> git flow release finish RELEASE<br>别忘了git push –tags</li>
+<li><strong>开始一个Hotfix:</strong> git flow hotfix start VERSION [BASENAME]</li>
+<li><strong>发布一个Hotfix:</strong> git flow hotfix finish VERSION</li>
+</ul>
+<p><img src="/images/o_git-flow-commands.png" alt="img"></p>
+<h3 id="Git-Flow-GUI"><a href="#Git-Flow-GUI" class="headerlink" title="Git Flow GUI"></a>Git Flow GUI</h3><p>上面讲了这么多，我知道还有人记不住，那么又有人做出了GUI 工具，你只需要点击下一步就行，工具帮你干这些事！！！</p>
+<h4 id="SourceTree"><a href="#SourceTree" class="headerlink" title="SourceTree"></a>SourceTree</h4><p>当你用Git-flow初始化后，基本上你只需要点击git flow菜单选择start feature, release或者hotfix, 做完后再次选择git flow菜单，点击Done Action. 我勒个去，我实在想不到还有比这更简单的了。</p>
+<p>目前SourceTree支持Mac, Windows, Linux.</p>
+<p>这么好的工具请问多少钱呢？ <strong>免费!!!!</strong></p>
+<p><img src="/images/o_source-tree-git-flow-init.png" alt="img"></p>
+<p><img src="/images/o_sourcetree-hero-mac-log.png" alt="img"></p>
+<p>转载自csdn博客，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wish123/p/9785101.html">查看原文</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/plan-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/plan-docker/" class="post-title-link" itemprop="url">计划进度-熟练使用docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-14 19:00:34" itemprop="dateCreated datePublished" datetime="2019-03-14T19:00:34+08:00">2019-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 10:47:21" itemprop="dateModified" datetime="2021-02-03T10:47:21+08:00">2021-02-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="计划进度-熟练使用docker"><a href="#计划进度-熟练使用docker" class="headerlink" title="计划进度- 熟练使用docker"></a>计划进度- 熟练使用docker</h1><p>2019.03.14  尝试使用docker搭建<a target="_blank" rel="noopener" href="https://github.com/leejoneshane/docker-youphptube">youphptube</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>docker-compose</p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/plan-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/plan-vue/" class="post-title-link" itemprop="url">计划进度-熟练使用vue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-12 17:39:34" itemprop="dateCreated datePublished" datetime="2019-03-12T17:39:34+08:00">2019-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 10:47:21" itemprop="dateModified" datetime="2021-02-03T10:47:21+08:00">2021-02-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="计划进度-熟练使用vue"><a href="#计划进度-熟练使用vue" class="headerlink" title="计划进度- 熟练使用vue"></a>计划进度- 熟练使用vue</h1><p>2019.03.12  开始阅读<a target="_blank" rel="noopener" href="https://ernest-su.gitbook.io/learning-vuejs-2-zh-cn/">vue-js 2.0完全入门记录</a> </p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/amazon-kindle-paper-white-bug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/amazon-kindle-paper-white-bug/" class="post-title-link" itemprop="url">kindle paperwhite缺陷：WIFI问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-06 18:46:55" itemprop="dateCreated datePublished" datetime="2017-04-06T18:46:55+08:00">2017-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%89%80%E6%80%9D%E6%89%80%E6%83%B3/" itemprop="url" rel="index"><span itemprop="name">所思所想</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>上午京东买了958的KPW3，结果WIFI一直连不上。于是百度解决办法，也不行。问在线客服，并没有本质上解决问题，而且技术支持一点也不懂技术。下面是对话记录。</p>
+</blockquote>
+<p>我: 怎么看是paperwhite是第几代，连接不上wifi<br>您现在已连接到亚马逊的 高云涛。<br>高云涛: 您好，欢迎使用亚马逊在线服务，我是亚马逊kindle客服：高云涛，很高兴为您服务，请问有什么可以帮到您的？<br>麻烦您提供一下设备的序列号我帮您查询下<br>在这里查询序列号</p>
+<ol>
+<li>从主页（点击小房子回到主页）点击右上角三个点菜单键。</li>
+<li>点击【设置】，然后再次点击【右上角三点菜单键】。</li>
+<li>点击【设备信息】.查看序列号提供一下<br>我: ******(保护隐私，此处隐藏)<br>高云涛: 目前设备还没有注册<br>是kpw3代<br>我: 连接不上wifi<br>高云涛: 您连接的wifi是家庭路由器吗<br>我: 我的手机都能连接上。 是公司的路由器<br>密码确定是正确的。<br>百度后尝试建立WIFI_NO_NET_PROBE 文件，也不行<br>高云涛: kindle对wifi的信道有要求的<br>我: 改不了wifi信道，就用不了了？<br>高云涛: 重启一下路由器试试<br>我: 总不能每次都重启路由器吧<br>高云涛: 重启一次，能连接上就行<br>不用总重启<br>或是您打开手机的流量热点<br>我: 升级固件也不能吗？是固件的问题还是硬件的缺陷？<br>高云涛: 连接热点注册试试<br>目前您还没有注册，看不到固件是哪版的<br>我: 5.8.2.1<br>高云涛: 太低了<br>我: 升级了固件能够解决这个问题吗？<br>高云涛: 系统包下载连接<br><a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1mijs8pM">http://pan.baidu.com/s/1mijs8pM</a><br>• 下载系统包后，将软件更新文件传输至Kindle设备：<br>a.    打开Kindle，并使用USB连接线将其连接至电脑。<br>b.    将新的更新文件从电脑拖入Kindle驱动器中。<br>注意： 不要将更新文件拖入Kindle驱动器中的任何文件夹中。<br>•开始软件更新：<br>a.    在【主页】中，点击【菜单】图标，然后点击【设置】。<br>b.    再次点击【菜单】图标，然后点击【更新您的Kindle】。 如果已安装最新更新，或者更新文件传输失败，此选项将显示为灰色。<br>c.    点击【确定】执行更新。 此时您将看到【您的Kindle正在更新】。<br>更新完成后，Kindle将立即自动重启。<br>我: 我从官网下载着。<br>高云涛: 先更新后，在试试<br>最好也换网<br>我: 重启路由器也不行<br>高云涛: 换手机流量热点<br>我: KPW3支持的信道是多少<br>高云涛: 1.6.11<br>我: 不在这三个信道上的话，只能一遍遍的重启路由器？<br>高云涛: 您现在先不用考虑那些<br>您现在打开手机流量热点<br>先连接试试<br>我: 注册上了<br>高云涛: 请问您还有其他疑问吗？<br>我: 有，不在这三个信道上的话，只能一遍遍的重启路由器？<br>高云涛: 可以自己设置<br>我: 不是自己的路由器不能设置啊。。。<br>升级固件也不能吗？是固件的问题还是硬件的缺陷？<br>高云涛: 这个问题，建议您和公司协商一下<br>可以连接热点，设备是没有问题的<br>是wifi的设备问题<br>不是通过设备更新，就能单纯解决<br>不是同一个问题<br>我: 不是吧，手机都没问题。<br>高云涛: 之前已经告知您了，kindle对wifi信道有要求<br>不是手机可以连接的，kindle就一定可以连接<br>我: 这个没有在说明书上有啊<br>高云涛: 没有<br>这个是您公司的网问题，不是您设备的问题<br>重启路由器，就是简单的拔下电源，然后10秒后充电<br>高云涛: 没有<br>这个是您公司的网问题，不是您设备的问题<br>重启路由器，就是简单的拔下电源，然后10秒后充电<br>请问您还有其他疑问吗？<br>我: 没解决问题</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/android-collections/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/android-collections/" class="post-title-link" itemprop="url">安卓开发相关框架文章收集（长期更新）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-03 17:30:55" itemprop="dateCreated datePublished" datetime="2017-04-03T17:30:55+08:00">2017-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-29 10:14:25" itemprop="dateModified" datetime="2021-10-29T10:14:25+08:00">2021-10-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" itemprop="url" rel="index"><span itemprop="name">开发效率</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在做项目初期，如果知道有哪些框架/工具可用，对项目的开发会有很大的帮助。这篇帖子收集项目开发用过的，或者有类似需求不知道有对应工具，后来发现这些工具有相见恨晚感觉的。作为一个类似于备忘录的帖子，根据个人判断在需要的时候进行增删改查。介绍时候尽量用一两个关键词。收集的文章可能会因各种原因失效，请以标题自行在搜索引擎搜索。帖子目的不是做到大而全且更新频繁。如果读者有这样的需求，良心推荐<a target="_blank" rel="noopener" href="http://gank.io/">干货集中营</a>,每日分享 <strong>妹子图</strong> 和 ** 技术干货**，还有供大家中午休息的休闲视频</p>
+</blockquote>
+<p>最近更新于 2017-03-24 <a target="_blank" rel="noopener" href="http://www.suqishuo.cn/android-collections/">原文才持续更新哦</a></p>
+<h1 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h1><h2 id="DiffUtil"><a href="#DiffUtil" class="headerlink" title="DiffUtil"></a>DiffUtil</h2><blockquote>
+<p>DiffUtil是一个查找集合变化的工具类，是搭配RecyclerView一起使用的。DiffUtil的作用，就是找出集合中每一个Item发生的变化，然后对每个变化给予对应的刷新。<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/Fndroid/p/5789470.html">Android开发学习之路-DiffUtil使用教程</a></p>
+</blockquote>
+<h2 id="logger"><a href="#logger" class="headerlink" title="logger"></a>logger</h2><blockquote>
+<p>简单，美观，功能强大的安卓打印工具。<br><a target="_blank" rel="noopener" href="https://github.com/orhanobut/logger">GitHub</a></p>
+</blockquote>
+<h2 id="moco模拟服务器返回数据"><a href="#moco模拟服务器返回数据" class="headerlink" title="moco模拟服务器返回数据"></a>moco模拟服务器返回数据</h2><blockquote>
+<p>灵活配置参数，请求方法，URL，支持挂载文件，自带独立微型服务器，可以用json，java等语言配置。<br><a target="_blank" rel="noopener" href="http://www.suqishuo.cn/how-to-build-api-mock-service/">介绍文章</a><br><a target="_blank" rel="noopener" href="https://github.com/dreamhead/moco/">官网</a></p>
+</blockquote>
+<h1 id="快速开发"><a href="#快速开发" class="headerlink" title="快速开发"></a>快速开发</h1><h2 id="AS插件"><a href="#AS插件" class="headerlink" title="AS插件"></a>AS插件</h2><blockquote>
+<p>ButterKnife Zelezny：ButterKnife 生成器<br>SelectorChapek：selector 自动生成XML<br>GsonFormat：json字符串生成相应的实体类<br> <a target="_blank" rel="noopener" href="http://stormzhang.com/android/2015/05/26/android-tools/">介绍文章</a></p>
+</blockquote>
+<h2 id="bufferKnife"><a href="#bufferKnife" class="headerlink" title="bufferKnife"></a>bufferKnife</h2><blockquote>
+<p>JakeWharton大神出品。View,资源，事件注解方式初始化。<br><a target="_blank" rel="noopener" href="http://jakewharton.github.io/butterknife/">官网</a></p>
+</blockquote>
+<h1 id="网络框架"><a href="#网络框架" class="headerlink" title="网络框架"></a>网络框架</h1><h2 id="Volley"><a href="#Volley" class="headerlink" title="Volley"></a>Volley</h2><blockquote>
+<p>2013年Google I/O大会上推出的一个新的网络通信框架，简化Http通信，提供异步回调。<br>个人更推荐使用retrofit`</p>
+</blockquote>
+<h2 id="Retrofit"><a href="#Retrofit" class="headerlink" title="Retrofit"></a>Retrofit</h2><blockquote>
+<p>Retrofit与okhttp共同出自于Square公司,retrofit就是对okhttp做了一层封装。把网络请求都交给给了Okhttp.配置简单灵活，接口返回对象，支持rxJava无缝对接<br><a target="_blank" rel="noopener" href="https://github.com/square/retrofit">GitHub</a></p>
+</blockquote>
+<h2 id="Glide-图片加载"><a href="#Glide-图片加载" class="headerlink" title="Glide 图片加载"></a>Glide 图片加载</h2><blockquote>
+<p>这个库被广泛的运用在google的开源项目中，包括2014年google I/O大会上发布的官方app.Glide和Picasso有90%的相似度</p>
+</blockquote>
+<h2 id="Picasso图片加载"><a href="#Picasso图片加载" class="headerlink" title="Picasso图片加载"></a><del>Picasso图片加载</del></h2><blockquote>
+<p>推荐用Glide代替。查看对比文章 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/sihaixuan/p/4853233.html">Picasso VS Glide</a></p>
+</blockquote>
+<h1 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h1><h2 id="GreenDAO"><a href="#GreenDAO" class="headerlink" title="GreenDAO"></a>GreenDAO</h2><blockquote>
+<p>greenDao是一个将对象映射到SQLite数据库中的轻量且快速的ORM解决方案，跟EvenBus师出同门。<br><a target="_blank" rel="noopener" href="http://www.suqishuo.cn/greendao-project-practice.md">介绍文章1</a><br><a target="_blank" rel="noopener" href="http://www.suqishuo.cn/greendao-project-practice-ToOne-ToMany.md">介绍文章2</a><br><a target="_blank" rel="noopener" href="http://greenrobot.org/greendao/">官网</a></p>
+</blockquote>
+<h2 id="sqlbrite"><a href="#sqlbrite" class="headerlink" title="sqlbrite"></a>sqlbrite</h2><blockquote>
+<p>square出品。一个轻量级SQLiteOpenHelper包装类，引入reactive 流式语法,完美解决数据库和UI的同步更新！<br> <a target="_blank" rel="noopener" href="https://github.com/square/sqlbrite">GitHub</a></p>
+</blockquote>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><h2 id="Hugo-打印方法参数执行时间"><a href="#Hugo-打印方法参数执行时间" class="headerlink" title="Hugo 打印方法参数执行时间"></a>Hugo 打印方法参数执行时间</h2><blockquote>
+<p>JakeWharton大神出品。只要一行<code>@DebugLog</code>注解打印方法的传参和返回值，甚至方法的执行时间,只在debug版本打印，对release版本无任何影响。<br><a target="_blank" rel="noopener" href="https://github.com/JakeWharton/hugo.git">GitHub</a></p>
+</blockquote>
+<h2 id="Scalpel"><a href="#Scalpel" class="headerlink" title="Scalpel"></a>Scalpel</h2><blockquote>
+<p>JakeWharton大神出品。查看界面层级，3D的效果。方便优化界面布局。<br><a target="_blank" rel="noopener" href="https://github.com/JakeWharton/scalpel.git">GitHub</a></p>
+</blockquote>
+<h2 id="leakcanary"><a href="#leakcanary" class="headerlink" title="leakcanary"></a>leakcanary</h2><blockquote>
+<p>square出品。内存泄漏检测工具<br> <a target="_blank" rel="noopener" href="https://github.com/square/leakcanary">GitHub</a></p>
+</blockquote>
+<h1 id="rxJava-rxAndroid"><a href="#rxJava-rxAndroid" class="headerlink" title="rxJava/rxAndroid"></a>rxJava/rxAndroid</h1><h2 id="rxJava-rxAndroid-精品文章"><a href="#rxJava-rxAndroid-精品文章" class="headerlink" title="rxJava/rxAndroid 精品文章"></a>rxJava/rxAndroid 精品文章</h2><p> <a target="_blank" rel="noopener" href="http://rxjava.yuxingxin.com/">RxJava Essentials 中文翻译版</a><br> <a target="_blank" rel="noopener" href="http://gank.io/post/560e15be2dca930e00da1083">给 Android 开发者的 RxJava 详解</a><br> <a target="_blank" rel="noopener" href="http://blog.csdn.net/lzyzsd/article/details/41833541">深入浅出RxJava（一：基础篇）</a><br> <a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhaoyanjun/p/5624395.html">RxJava 和 RxAndroid 五（线程调度</a></p>
+<h2 id="rxJava-示例代码"><a href="#rxJava-示例代码" class="headerlink" title="rxJava 示例代码"></a>rxJava 示例代码</h2><p> <a target="_blank" rel="noopener" href="https://github.com/rengwuxian/RxJavaSamples">rxJava 示例代码集</a></p>
+<h2 id="rxJava框架-rxBinding"><a href="#rxJava框架-rxBinding" class="headerlink" title="rxJava框架 rxBinding"></a>rxJava框架 rxBinding</h2><h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><h2 id="精品文章"><a href="#精品文章" class="headerlink" title="精品文章"></a>精品文章</h2><p><a target="_blank" rel="noopener" href="https://theseyears.gitbooks.io/android-architecture-journey/content/rxbus.html">Android架构探索</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/android-architecture-guideline-for-mvp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/android-architecture-guideline-for-mvp/" class="post-title-link" itemprop="url">GitHub上star超过2k的安卓MVP架构指南</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-28 19:06:55" itemprop="dateCreated datePublished" datetime="2017-03-28T19:06:55+08:00">2017-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>近日在搜MVP模式作为安卓项目架构时候，发现GitHub上一篇介绍MVP架构的文章。一看star已经超过2K了。通读全文发现作者用实际项目将MVP架构要怎么分职责讲得十分通俗易懂。为了方便大家查阅，把原文翻译了一下。作者还有一篇文章讲安卓项目和代码风格指南的。欢迎查看<a target="_blank" rel="noopener" href="http://www.suqishuo.cn/android-project-and-code-guidelines/">相关翻译</a>。</p>
+</blockquote>
+<h1 id="架构指南"><a href="#架构指南" class="headerlink" title="架构指南"></a>架构指南</h1><p>我们的安卓APP架构基于 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter">MVP</a> (Model View Presenter) 模式。</p>
+<ul>
+<li><p><strong>View (UI 层)</strong>:这是 Activities, Fragments 和其他标准安卓控件所在层。它的职责是呈现从Presenter收到的数据给用户。它也处理用户的交互和输入（点击监听等）以及在需要时触发Presenter中对应的动作。</p>
+</li>
+<li><p><strong>Presenter</strong>: Presenter 订阅由 <code>DataManager</code> 提供的 RxJava Observables。他们负责处理订阅的生命周期，分析/修改<code>DataManager</code>返回的数据，调用View中的合适方法以便展示数据。</p>
+</li>
+<li><p><strong>Model (Data 层)</strong>: 它们的职责是取回，保存，缓存，以及通知数据。它可以与本地数据库以及其他的数据仓库通信，使用restful API或者其他第三方SDK等方式。它分为两部分：一组帮助工具类以及一个  <code>DataManager</code> 。工具类的数量因项目而异，每一个工具类有特定的功能，比如与API通信或在 <code>SharedPreferences</code> 中保存数据.  <code>DataManager</code>  把不同工具类的输出使用rx操作符进行组合变换，所以它可以： 1) 提供有意义的数据给 Presenter，2) 把经常一起出现的动作组合在一起。这一层也包含实际的实体类，定义数据结构是怎样的。</p>
+</li>
+</ul>
+<p><img src="/images/mvp_architecture_diagram.png"></p>
+<p>从右到左看示意图:</p>
+<ul>
+<li><p><strong>Helpers (Model)</strong>: 一组类的集合，每个类有特定的职责，他们的功能可以从与API或数据库通信，到实现一些特定的业务逻辑等。每个项目会有不同的工具类，但最常见的几个是：</p>
+<ul>
+<li><strong>DatabaseHelper</strong>: 它处理插入，更新，以及获取来自本地SQLite数据库的数据。它的方法返回 Rx Observables ，发射(译者注：Rx术语)简单java对象 (models)。</li>
+<li><strong>PreferencesHelper</strong>: 它保存以及获取来自 <code>SharedPreferences</code> 的数据，他可以返回 Observables 或者直接返回简单java对象。</li>
+<li><strong>Retrofit services</strong> : <a target="_blank" rel="noopener" href="http://square.github.io/retrofit">Retrofit</a> 接口 使用Restful API 通信，每个不同的API拥有自己的 Retrofit 服务. 它们返回 Rx Observables.</li>
+</ul>
+</li>
+<li><p><strong>Data Manager (Model)</strong>: 这是MVP架构的关键部分。它持有每一个工具类的引用，使用这些工具类满足来自Presenter的请求。 它的方法广泛的使用 Rx 操作符来组合，转换或过滤来自工具类的输出，以便生成Presenter想要的输出。它返回发射数据模型（data models）的 observables。</p>
+</li>
+<li><p><strong>Presenters</strong>: 订阅由  <code>DataManager</code>  提供的observables，处理这些数据以便调用View中合适的方法。</p>
+</li>
+<li><p><strong>Activities, Fragments, ViewGroups (View)</strong>: 实现了一组Presenter可以调用的方法的标准安卓组件。它们也处理用户的交互如点击等，然后调用Presenter中合适的方法来采取相应的行动。这些控件也实现框架相关的任务，如管理安卓生命周期，渲染视图（Views）等。</p>
+</li>
+<li><p><strong>Event Bus</strong>: 它使得View控件得到发生在Model的特定事件通知。通常  <code>DataManager</code> 发出事件，然后这些事件可以被Activities 和 Fragments 订阅。  event bus  <strong>仅仅</strong> 用于非常特别的动作——这些事件不是仅与一个界面相关的，要通知多方，如：用户已经退出登录。<br><a target="_blank" rel="noopener" href="https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md">原文链接</a><br><a target="_blank" rel="noopener" href="http://www.suqishuo.cn/android-architecture-guideline-for-mvp/">译文链接</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/android-project-and-code-guidelines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/android-project-and-code-guidelines/" class="post-title-link" itemprop="url">GitHub上star超过2k的安卓项目和代码风格指南（绝对干货）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-28 19:06:55" itemprop="dateCreated datePublished" datetime="2017-03-28T19:06:55+08:00">2017-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">最佳实践</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>近日在搜MVP模式作为安卓项目架构时候，发现GitHub上一篇介绍MVP架构的文章。一看star已经超过2K了。作者同项目的这篇文章讲安卓项目和代码风格指南，也非常有参考价值。为了方便大家查阅，把原文翻译了一下。点击查看作者介绍安卓MVP架构指南的<a target="_blank" rel="noopener" href="http://www.suqishuo.cn/android-architecture-guideline-for-mvp/">翻译文章</a>。</p>
+</blockquote>
+<h1 id="1-项目指南"><a href="#1-项目指南" class="headerlink" title="1. 项目指南"></a>1. 项目指南</h1><h2 id="1-1-项目结构"><a href="#1-1-项目结构" class="headerlink" title="1.1 项目结构"></a>1.1 项目结构</h2><p>新项目应该遵循安卓Gradle项目结构，定义在这里 ：<a target="_blank" rel="noopener" href="http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure">安卓Gradle插件用户指南</a>。项目<a target="_blank" rel="noopener" href="https://github.com/ribot/android-boilerplate">ribot Boilerplate</a> 是一个很好的参考。</p>
+<h2 id="1-2-文件命名"><a href="#1-2-文件命名" class="headerlink" title="1.2 文件命名"></a>1.2 文件命名</h2><h3 id="1-2-1-类文件"><a href="#1-2-1-类文件" class="headerlink" title="1.2.1 类文件"></a>1.2.1 类文件</h3><p>类名书写方式是 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/CamelCase">大写的驼峰命名</a>.</p>
+<p>继承于安卓组件的类，名称应该以继承的组件命名，比如：<code>SignInActivity</code>, <code>SignInFragment</code>, <code>ImageUploaderService</code>, <code>ChangePasswordDialog</code>.</p>
+<h3 id="1-2-2-资源文件"><a href="#1-2-2-资源文件" class="headerlink" title="1.2.2 资源文件"></a>1.2.2 资源文件</h3><p>资源文件书写方式：小写_下划线。如：ic_launcher.png</p>
+<h4 id="1-2-2-1-Drawable-文件"><a href="#1-2-2-1-Drawable-文件" class="headerlink" title="1.2.2.1 Drawable 文件"></a>1.2.2.1 Drawable 文件</h4><p>drawable类型资源命名：</p>
+<table>
+<thead>
+<tr>
+<th>资源类别</th>
+<th>前缀</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Action bar</td>
+<td><code>ab_</code></td>
+<td><code>ab_stacked.9.png</code></td>
+</tr>
+<tr>
+<td>Button</td>
+<td><code>btn_</code></td>
+<td><code>btn_send_pressed.9.png</code></td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td><code>dialog_</code></td>
+<td><code>dialog_top.9.png</code></td>
+</tr>
+<tr>
+<td>Divider</td>
+<td><code>divider_</code></td>
+<td><code>divider_horizontal.9.png</code></td>
+</tr>
+<tr>
+<td>Icon</td>
+<td><code>ic_</code></td>
+<td><code>ic_star.png</code></td>
+</tr>
+<tr>
+<td>Menu</td>
+<td><code>menu_    </code></td>
+<td><code>menu_submenu_bg.9.png</code></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td><code>notification_</code></td>
+<td><code>notification_bg.9.png</code></td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td><code>tab_</code></td>
+<td><code>tab_pressed.9.png</code></td>
+</tr>
+</tbody></table>
+<p>图标（icons）命名方式 (取自 <a target="_blank" rel="noopener" href="http://developer.android.com/design/style/iconography.html">安卓图标官方指南</a>):</p>
+<table>
+<thead>
+<tr>
+<th>资源类别</th>
+<th>前缀</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Icons</td>
+<td><code>ic_</code></td>
+<td><code>ic_star.png</code></td>
+</tr>
+<tr>
+<td>Launcher icons</td>
+<td><code>ic_launcher</code></td>
+<td><code>ic_launcher_calendar.png</code></td>
+</tr>
+<tr>
+<td>Menu icons and Action Bar icons</td>
+<td><code>ic_menu</code></td>
+<td><code>ic_menu_archive.png</code></td>
+</tr>
+<tr>
+<td>Status bar icons</td>
+<td><code>ic_stat_notify</code></td>
+<td><code>ic_stat_notify_msg.png</code></td>
+</tr>
+<tr>
+<td>Tab icons</td>
+<td><code>ic_tab</code></td>
+<td><code>ic_tab_recent.png</code></td>
+</tr>
+<tr>
+<td>Dialog icons</td>
+<td><code>ic_dialog</code></td>
+<td><code>ic_dialog_info.png</code></td>
+</tr>
+</tbody></table>
+<p>selector 状态命名方式:</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>后缀</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Normal (正常)</td>
+<td><code>_normal</code></td>
+<td><code>btn_order_normal.9.png</code></td>
+</tr>
+<tr>
+<td>Pressed（按下）</td>
+<td><code>_pressed</code></td>
+<td><code>btn_order_pressed.9.png</code></td>
+</tr>
+<tr>
+<td>Focused （获得焦点）</td>
+<td><code>_focused</code></td>
+<td><code>btn_order_focused.9.png</code></td>
+</tr>
+<tr>
+<td>Disabled    （不可用）</td>
+<td><code>_disabled</code></td>
+<td><code>btn_order_disabled.9.png</code></td>
+</tr>
+<tr>
+<td>Selected    （选中）</td>
+<td><code>_selected</code></td>
+<td><code>btn_order_selected.9.png</code></td>
+</tr>
+</tbody></table>
+<h4 id="1-2-2-2-布局文件"><a href="#1-2-2-2-布局文件" class="headerlink" title="1.2.2.2 布局文件"></a>1.2.2.2 布局文件</h4><p>布局文件应该跟对应的安卓组件名称匹配，但是把最顶级的组件名称放在前面。比如，当我们创建一个用于 <code>SignInActivity</code>的布局，那布局文件名称应该是<code>activity_sign_in.xml</code>.</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>类名</th>
+<th>布局文件名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Activity</td>
+<td><code>UserProfileActivity</code></td>
+<td><code>activity_user_profile.xml</code></td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td><code>SignUpFragment</code></td>
+<td><code>fragment_sign_up.xml</code></td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td><code>ChangePasswordDialog</code></td>
+<td><code>dialog_change_password.xml</code></td>
+</tr>
+<tr>
+<td>AdapterView item</td>
+<td>—</td>
+<td><code>item_person.xml</code></td>
+</tr>
+<tr>
+<td>Partial layout</td>
+<td>—</td>
+<td><code>partial_stats_bar.xml</code></td>
+</tr>
+</tbody></table>
+<p>一个稍微不同的地方是当我们创建用于<code>Adapter</code>渲染的布局,如填充一个 <code>ListView</code>， 在这种情况下，布局文件命名应该是用 <code>item_</code>开始。<br>注意有些地方这些规则没法应用，如，当我们创建一个布局文件，用于渲染另一个布局的一部分，这样的情况下，我们应该使用<code>partial_</code>前缀。</p>
+<h4 id="1-2-2-3-菜单文件"><a href="#1-2-2-3-菜单文件" class="headerlink" title="1.2.2.3 菜单文件"></a>1.2.2.3 菜单文件</h4><p>跟布局文件相似，按钮文件应该跟对应的组件匹配。比如：当我们定义一个菜单，用于 <code>UserActivity</code>,那么文件名应该是 <code>activity_user.xml</code></p>
+<p>文件名不含有<code>menu</code>是个良好的习惯做法，因为这些文件已经位于 <code>menu</code> 目录了。</p>
+<h4 id="1-2-2-4-取值文件-Values-files"><a href="#1-2-2-4-取值文件-Values-files" class="headerlink" title="1.2.2.4 取值文件(Values files)"></a>1.2.2.4 取值文件(Values files)</h4><p>在values文件夹的资源文件应该是复数形式（plural），比如，<code>strings.xml</code>, <code>styles.xml</code>, <code>colors.xml</code>, <code>dimens.xml</code>, <code>attrs.xml</code></p>
+<h1 id="2-代码指南"><a href="#2-代码指南" class="headerlink" title="2 代码指南"></a>2 代码指南</h1><h2 id="2-1-Java语言规范"><a href="#2-1-Java语言规范" class="headerlink" title="2.1 Java语言规范"></a>2.1 Java语言规范</h2><h3 id="2-1-1-不要忽略了异常"><a href="#2-1-1-不要忽略了异常" class="headerlink" title="2.1.1 不要忽略了异常"></a>2.1.1 不要忽略了异常</h3><p>你万不该这样做:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setServerPort</span><span class="params">(String value)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        serverPort = Integer.parseInt(value);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NumberFormatException e) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然你可能觉得你的代码永远不会抛出这个异常或者这异常不重要，不需要处理它，像上面那样忽略异常会在你的代码中留下雷区，将来其他人会踩到。你必须在你的代码中以某种原则的方式处理每个异常。具体的处理视情况而定。._ - (<a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html">安卓官方代码指南</a>)</p>
+<p>指南中关于不要忽略异常的说明在 <a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#dont-ignore-exceptions">这里</a>.</p>
+<h3 id="2-1-2-不要捕获一般的异常。"><a href="#2-1-2-不要捕获一般的异常。" class="headerlink" title="2.1.2 不要捕获一般的异常。"></a>2.1.2 不要捕获一般的异常。</h3><p>你不应该这样做:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    someComplicatedIOFunction();        <span class="comment">// 可能抛出 IOException</span></span><br><span class="line">    someComplicatedParsingFunction();   <span class="comment">// 可能抛出 ParsingException</span></span><br><span class="line">    someComplicatedSecurityFunction();  <span class="comment">// 可能抛出 SecurityException</span></span><br><span class="line">    <span class="comment">//啊哈，统一处理掉</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;                 <span class="comment">//我将捕获所有的异常</span></span><br><span class="line">    handleError();                      <span class="comment">// 使用一个通用的处理手段!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看不这样做的原因以及要怎么做： <a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#dont-catch-generic-exception">猛戳安卓官方指南之不要捕获一般的异常</a></p>
+<h3 id="2-1-3-不要用finalizer"><a href="#2-1-3-不要用finalizer" class="headerlink" title="2.1.3 不要用finalizer"></a>2.1.3 不要用finalizer</h3><p>我们不使用finalizer。它什么时候被调用是没有保证的，甚至它不被调用。大部分情况下，你可以使用良好的异常处理来满足需要在finalizer中做的工作。如果你确实需要它，定义一个 <code>close()</code> 方法（或类似的）然后在文档中明确的指出什么时候这个方法需要被调用。可以查看 <code>InputStream</code> 做为例子.这种情况下，在finalizer中打印一个简短的log信息是恰当的但不是必须的，因为我们不希望log泛滥 ._ - (<a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#dont-use-finalizers">猛戳安卓官方指南之不要用finalizer</a>)</p>
+<h3 id="2-1-4-完全的import语句"><a href="#2-1-4-完全的import语句" class="headerlink" title="2.1.4 完全的import语句"></a>2.1.4 完全的import语句</h3><p>反例: <code>import foo.*;</code></p>
+<p>正解: <code>import foo.Bar;</code></p>
+<p>点击 <a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#fully-qualify-imports">这里</a> 查看更多说明</p>
+<h2 id="2-2-Java风格规范"><a href="#2-2-Java风格规范" class="headerlink" title="2.2 Java风格规范"></a>2.2 Java风格规范</h2><h3 id="2-2-1-全局变量定义及命名"><a href="#2-2-1-全局变量定义及命名" class="headerlink" title="2.2.1 全局变量定义及命名"></a>2.2.1 全局变量定义及命名</h3><p>全局变量应该定义在<strong>文件的头部</strong>,遵循下面的命名规则。</p>
+<ul>
+<li>私有的非静态全局变量以<code>m</code>开头</li>
+<li>私有的静态全局变量以<code>s</code>开头</li>
+<li>其他的全局变量以小写单词开头</li>
+<li>常量使用全部大写，单词间用下划线间隔（ALL_CAPS_WITH_UNDERSCORES）.<blockquote>
+<p>译者注：这个规则取自Android Open Source Project代码贡献规范。在程序员的圈子里对于要不要前缀这个问题已经吵翻天了。我在使用greendao的时候使用前缀的话，自动生成的getter/setter会是getMxxx/setMxxx这样难看的方法。很多人也觉得这个命名规则没有意义。<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/2092098/why-do-most-fields-class-members-in-android-tutorial-start-with-m">stackOverFlow</a> 还有 <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/4237469/why-do-variable-names-often-start-with-the-letter-m">这里</a> ，以及一本教你怎么写出整洁代码的书中如是说：<br>“我觉得如今这些前缀没有意义，尤其是在你的APP中!你的类和方法应该尽量的小，而且你应该使用代码高亮的编辑环境，使得成员变量易于分辨。再者，人们快速适应忽略了前缀或后缀来看名字的有意义部分。我们阅读代码越多，看到前后缀越少。渐渐地，前缀就变成了旧代码看不到的线索和标记。——代码整洁之道(Clean.Code).Robert.C.Martin”</p>
+</blockquote>
+</li>
+</ul>
+<p>例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">SOME_CONSTANT</span> <span class="operator">=</span> <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> publicField;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MyClass sSingleton;</span><br><span class="line">    <span class="type">int</span> mPackagePrivate;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mPrivate;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> mProtected;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3把首字母缩写当做一个单词来看"><a href="#2-2-3把首字母缩写当做一个单词来看" class="headerlink" title="2.2.3把首字母缩写当做一个单词来看"></a>2.2.3把首字母缩写当做一个单词来看</h3><table>
+<thead>
+<tr>
+<th>好的例子</th>
+<th>不好的例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>XmlHttpRequest</code></td>
+<td><code>XMLHTTPRequest</code></td>
+</tr>
+<tr>
+<td><code>getCustomerId</code></td>
+<td><code>getCustomerID</code></td>
+</tr>
+<tr>
+<td><code>String url</code></td>
+<td><code>String URL</code></td>
+</tr>
+<tr>
+<td><code>long id</code></td>
+<td><code>long ID</code></td>
+</tr>
+</tbody></table>
+<h3 id="2-2-4-使用空格缩进"><a href="#2-2-4-使用空格缩进" class="headerlink" title="2.2.4 使用空格缩进"></a>2.2.4 使用空格缩进</h3><p>使用四个空格做代码块缩进:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</span><br><span class="line">    x++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>换行时使用8个空格缩进:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Instrument</span> <span class="variable">i</span> <span class="operator">=</span></span><br><span class="line">        someLongExpression(that, wouldNotFit, on, one, line);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-5-使用标准的大括号风格"><a href="#2-2-5-使用标准的大括号风格" class="headerlink" title="2.2.5 使用标准的大括号风格"></a>2.2.5 使用标准的大括号风格</h3><p>大括号的开始跟代码同一行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">func</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (something) &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (somethingElse) &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>条件语句使用大括号包住，除非条件体只有一行。<br>如果条件及只有一行条件体，而且没被换行，大括号是不必的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition) body();</span><br></pre></td></tr></table></figure>
+
+<p>这是<strong>不好的</strong>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">    body();  <span class="comment">// 不好的，没有大括号包围!</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-6-注解"><a href="#2-2-6-注解" class="headerlink" title="2.2.6 注解"></a>2.2.6 注解</h3><h4 id="2-2-6-1-注解实践规范"><a href="#2-2-6-1-注解实践规范" class="headerlink" title="2.2.6.1 注解实践规范"></a>2.2.6.1 注解实践规范</h4><p>根据安卓代码风格指南，一些Java内置的注解标准的实践规范有：</p>
+<ul>
+<li><p><code>@Override</code>:  无论一个方法是重载父类还是实现某个接口的都<strong>必须使用</strong>@Override 注解。比如，当你使用 @inheritdocs Javadoc 标签,然后 从一个类(不是一个接口)中导出，你也必须声明那个方法 @Overrides 父类的方法。</p>
+</li>
+<li><p><code>@SuppressWarnings</code>: @SuppressWarnings 注解应该仅当不可能消除一个警告的时候才使用。如果一个警告 通过这个 “不可能消除” 的测试,  @SuppressWarnings 注解必不可少, 以便保证所有的警告在代码中反映实际的问题。</p>
+</li>
+</ul>
+<p>关于注解的更多指南可以查看<a target="_blank" rel="noopener" href="http://source.android.com/source/code-style.html#use-standard-java-annotations">这里</a>.</p>
+<h4 id="2-2-6-2-注解风格"><a href="#2-2-6-2-注解风格" class="headerlink" title="2.2.6.2 注解风格"></a>2.2.6.2 注解风格</h4><p><strong>类，方法及构造器</strong></p>
+<p>当注解被应用到一个类，方法或者构造函数时候，注解在代码注释之后，<strong>一行一个</strong>注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 这是这个类的注解 */</span></span><br><span class="line"><span class="meta">@AnnotationA</span></span><br><span class="line"><span class="meta">@AnnotationB</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAnnotatedClass</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>全局变量</strong></p>
+<p>全局变量的注解应该在<strong>同一行</strong>列出。除非这一行超过了最大字数了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span> <span class="meta">@Mock</span> DataManager mDataManager;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-7-限制变量范围"><a href="#2-2-7-限制变量范围" class="headerlink" title="2.2.7 限制变量范围"></a>2.2.7 限制变量范围</h3><p>变量的使用范围应该限制到最小(Effective Java 条目 29)。这样做，你可以为你的代码增加可读性和可维护性，减少可能的错误。每个变量应该在最内层的使用到的它代码块中定义</p>
+<p>局部变量应该在第一次用到他们的时候定义。几乎每个局部变量都应该初始化。如果你没有足够的信息去初始化一个变量，你应该延迟声明这个变量，直到你有足够的初始化信息。._ - (<a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#limit-variable-scope">安卓代码风格指南</a>)</p>
+<h3 id="2-2-8-排序import语句"><a href="#2-2-8-排序import语句" class="headerlink" title="2.2.8 排序import语句"></a>2.2.8 排序import语句</h3><p>如果你使用IDE,如Android Studio，你不必担心这些规则，这些IDE已经遵循这些规则。如果你不用IDE，往下看这些规则:</p>
+<ol>
+<li> import 安卓框架的</li>
+<li>Import 来自第三方的(com, junit, net, org)</li>
+<li>java 以及  javax</li>
+<li>同一个项目的 imports</li>
+</ol>
+<p>为了保持跟IDE的设置一致，这些imports应该是这样的：</p>
+<ul>
+<li>首字母分组排序，大写的字母在小写的字母前面（如Z在a前面）。</li>
+<li>每个主要分组 (android, com, junit, net, org, java, javax)间应该有一行空行。</li>
+</ul>
+<p>更多信息查看<a target="_blank" rel="noopener" href="https://source.android.com/source/code-style.html#limit-variable-scope">这里</a></p>
+<h3 id="2-2-9-日志-Loging-指南"><a href="#2-2-9-日志-Loging-指南" class="headerlink" title="2.2.9 日志(Loging)指南"></a>2.2.9 日志(Loging)指南</h3><p>使用 <code>Log</code>  类提供的日志方法来打印错误信息或对开发者分辨问题有用的其他信息：</p>
+<ul>
+<li><code>Log.v(String tag, String msg)</code> (verbose)</li>
+<li><code>Log.d(String tag, String msg)</code> (debug)</li>
+<li><code>Log.i(String tag, String msg)</code> (information)</li>
+<li><code>Log.w(String tag, String msg)</code> (warning)</li>
+<li><code>Log.e(String tag, String msg)</code> (error)</li>
+</ul>
+<p>通常来说，我们使用一个类的名称作为一个TAG，在文件的开头定义成一个 <code>static final</code> 变量，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> MyClass.class.getSimpleName();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">myMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        Log.e(TAG, <span class="string">&quot;My error message&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>VERBOSE 和 DEBUG 日志 <strong>必须</strong>在release版本中禁用。同时也建议禁用INFORMATION, WARNING 和 ERROR 日志，但是你可能觉得它们在release版本中定位问题很有用而保持启用。如果你决定让他们保持启用，你要保证这些日志信息不会泄漏email地址，用户id之类的隐私信息。<br>仅限debug版本显示Log的配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) Log.d(TAG, <span class="string">&quot;The value of x is &quot;</span> + x);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-10-类成员排序"><a href="#2-2-10-类成员排序" class="headerlink" title="2.2.10 类成员排序"></a>2.2.10 类成员排序</h3><p>这虽然没有简单正确的方案，但是使用一个 <strong>逻辑的</strong> 及 ** 一致的 ** 顺序可以提高代码的可读性和可学习性。下面是推荐的顺序：</p>
+<ol>
+<li>常量</li>
+<li>全局变量</li>
+<li>构造函数</li>
+<li>重载的函数和回调 (public 或 private)</li>
+<li>Public 方法</li>
+<li>Private 方法</li>
+<li>内部类或内部接口</li>
+</ol>
+<p>例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">Activity</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String mTitle;</span><br><span class="line">    <span class="keyword">private</span> TextView mTextViewTitle;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTitle</span><span class="params">(String title)</span> &#123;</span><br><span class="line">    	mTitle = title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setUpView</span><span class="params">()</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">AnInnerClass</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你的类继承一个<strong>安卓组件</strong>如Activity或Fragment，对重载的方法进行排序以便<strong>跟组件的生命周期匹配</strong>是一个最佳实践。比如，当你的Activity实现<code>onCreate()</code>, <code>onDestroy()</code>, <code>onPause()</code> 和 <code>onResume()</code>，正确的顺序是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">Activity</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//顺序跟Activity的生命周期匹配</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onResume</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onPause</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onDestroy</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-11-方法的参数顺序"><a href="#2-2-11-方法的参数顺序" class="headerlink" title="2.2.11 方法的参数顺序"></a>2.2.11 方法的参数顺序</h3><p>在安卓编码时候，定义一个方法拥有一个<code>Context</code>参数是非常常见的，如果你写一个这样的方法，<strong>Context</strong>应该是第一个参数。</p>
+<p>相反的例子是<strong>回调</strong>接口，它应该是<strong>最后</strong>一个参数<br>例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Context 总是在第一个位</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">loadUser</span><span class="params">(Context context, <span class="type">int</span> userId)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回调总是在最后一位</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">loadUserAsync</span><span class="params">(Context context, <span class="type">int</span> userId, UserCallback callback)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-13-字符串常量，命名和取值"><a href="#2-2-13-字符串常量，命名和取值" class="headerlink" title="2.2.13 字符串常量，命名和取值"></a>2.2.13 字符串常量，命名和取值</h3><p>很多安卓SDK的元素如<code>SharedPreferences</code>, <code>Bundle</code>, 或 <code>Intent</code>使用键值对实现，所以即使是一个小应用，使用一堆字符串常量也是很常见的。</p>
+<p>当使用这些组件，你<strong>必须</strong>定义这些键是 <code>static final</code> 变量，并且它们应该像下面这样使用前缀</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>变量名前缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SharedPreferences</td>
+<td><code>PREF_</code></td>
+</tr>
+<tr>
+<td>Bundle</td>
+<td><code>BUNDLE_</code></td>
+</tr>
+<tr>
+<td>Fragment Arguments</td>
+<td><code>ARGUMENT_</code></td>
+</tr>
+<tr>
+<td>Intent Extra</td>
+<td><code>EXTRA_</code></td>
+</tr>
+<tr>
+<td>Intent Action</td>
+<td><code>ACTION_</code></td>
+</tr>
+</tbody></table>
+<p>注意Fragment的参数——<code>Fragment.getArguments()</code>也是一个Bundle。然而，因为这是Bundle非常常见的用法，我们为它定义一个不同的前缀。</p>
+<p>例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意这些变量的值应该和名称一致来避免问题</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PREF_EMAIL</span> <span class="operator">=</span> <span class="string">&quot;PREF_EMAIL&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">BUNDLE_AGE</span> <span class="operator">=</span> <span class="string">&quot;BUNDLE_AGE&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ARGUMENT_USER_ID</span> <span class="operator">=</span> <span class="string">&quot;ARGUMENT_USER_ID&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Intent相关的使用完全包名作为值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">EXTRA_SURNAME</span> <span class="operator">=</span> <span class="string">&quot;com.myapp.extras.EXTRA_SURNAME&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ACTION_OPEN_USER</span> <span class="operator">=</span> <span class="string">&quot;com.myapp.action.ACTION_OPEN_USER&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-14-Fragment和Activity的参数"><a href="#2-2-14-Fragment和Activity的参数" class="headerlink" title="2.2.14  Fragment和Activity的参数"></a>2.2.14  Fragment和Activity的参数</h3><p>当数据通过<code>Intent</code> 或<code>Bundle</code>传递到一个<code>Activity </code>或 <code>Fragment</code>，这些不同值的键<strong>必须</strong> 遵循上面描述的规则。</p>
+<p>当一个 <code>Activity</code> 或 <code>Fragment</code>  想要参数，它应该提供一个<code>public static</code>方法来简化对应的<code>Intent</code> 或 <code>Fragment</code>创建<br>在Activity中这个方法通常叫 <code>getStartIntent()</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Intent <span class="title function_">getStartIntent</span><span class="params">(Context context, User user)</span> &#123;</span><br><span class="line">	<span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(context, ThisActivity.class);</span><br><span class="line">	intent.putParcelableExtra(EXTRA_USER, user);</span><br><span class="line">	<span class="keyword">return</span> intent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于Fragment它的名称是<code>newInstance()</code>，处理使用合适的参数创建Fragment。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> UserFragment <span class="title function_">newInstance</span><span class="params">(User user)</span> &#123;</span><br><span class="line">	<span class="type">UserFragment</span> <span class="variable">fragment</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserFragment</span>;</span><br><span class="line">	<span class="type">Bundle</span> <span class="variable">args</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bundle</span>();</span><br><span class="line">	args.putParcelable(ARGUMENT_USER, user);</span><br><span class="line">	fragment.setArguments(args)</span><br><span class="line">	<span class="keyword">return</span> fragment;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意1</strong>: 这些方法应该在类的 <code>onCreate()</code>前面</p>
+<p><strong>注意2</strong>: 如果我们提供上面说的方法，这些extras对应的键和参数应该是<code>private</code> 的，因为他们不需要暴露到类以外。</p>
+<h3 id="2-2-15-代码行长度限制"><a href="#2-2-15-代码行长度限制" class="headerlink" title="2.2.15 代码行长度限制"></a>2.2.15 代码行长度限制</h3><p>代码行不应该超过<strong>100 个字符</strong>。如果代码行超过这个限制长度，通常有两种方式来降低长度：</p>
+<ul>
+<li>提取一个局部变量或方法（推荐方式）.</li>
+<li>把单行换行成多行。</li>
+</ul>
+<p>有两种<strong>例外</strong>可以让一行超过100字符：</p>
+<ul>
+<li>这行不可分割，如长URL。</li>
+<li><code>package</code> 和 <code>import</code> 语句.</li>
+</ul>
+<h4 id="2-2-15-1-换行策略"><a href="#2-2-15-1-换行策略" class="headerlink" title="2.2.15.1 换行策略"></a>2.2.15.1 换行策略</h4><p>没有精确的公式解释怎么换行，很多不同的方案是有效的。然而，这里有几个规则可以应用到常见情况。<br><strong>在操作符前断开</strong></p>
+<p>当一行被操作符断开，断开处应该在操作符<strong>之前</strong>，例子如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">longName</span> <span class="operator">=</span> anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne</span><br><span class="line">        + theFinalOne;</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋值符号（=）例外</strong></p>
+<p>在操作符前断开有一个例外，那就是赋值符号  <code>=</code>，应该在赋值符号<strong>后面</strong>断开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">longName</span> <span class="operator">=</span></span><br><span class="line">        anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne + theFinalOne;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法链的情况</strong></p>
+<p>当多个方法被链接在同一行的时候——如使用Builder时，每一个方法的调用应该在独立一行，在 <code>.</code>之前断开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Picasso.with(context).load(<span class="string">&quot;http://ribot.co.uk/images/sexyjoe.jpg&quot;</span>).into(imageView);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Picasso.with(context)</span><br><span class="line">        .load(<span class="string">&quot;http://ribot.co.uk/images/sexyjoe.jpg&quot;</span>)</span><br><span class="line">        .into(imageView);</span><br></pre></td></tr></table></figure>
+
+<p><strong>长参数的情况</strong></p>
+<p>当一个方法有很多参数或它的参数非常长，我们应该在每个逗号 <code>,</code>后面断开</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loadPicture(context, <span class="string">&quot;http://ribot.co.uk/images/sexyjoe.jpg&quot;</span>, mImageViewProfilePicture, clickListener, <span class="string">&quot;Title of the picture&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loadPicture(context,</span><br><span class="line">        <span class="string">&quot;http://ribot.co.uk/images/sexyjoe.jpg&quot;</span>,</span><br><span class="line">        mImageViewProfilePicture,</span><br><span class="line">        clickListener,</span><br><span class="line">        <span class="string">&quot;Title of the picture&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-16-RxJava-链式风格"><a href="#2-2-16-RxJava-链式风格" class="headerlink" title="2.2.16 RxJava 链式风格"></a>2.2.16 RxJava 链式风格</h3><p>Rx链式操作符要求换行。每一个操作符必须在新的一行，断行应该在<code>.</code>之前</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Observable&lt;Location&gt; <span class="title function_">syncLocations</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> mDatabaseHelper.getAllLocations()</span><br><span class="line">            .concatMap(<span class="keyword">new</span> <span class="title class_">Func1</span>&lt;Location, Observable&lt;? <span class="keyword">extends</span> <span class="title class_">Location</span>&gt;&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                 <span class="keyword">public</span> Observable&lt;? <span class="keyword">extends</span> <span class="title class_">Location</span>&gt; call(Location location) &#123;</span><br><span class="line">                     <span class="keyword">return</span> mRetrofitService.getLocation(location.id);</span><br><span class="line">                 &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .retry(<span class="keyword">new</span> <span class="title class_">Func2</span>&lt;Integer, Throwable, Boolean&gt;() &#123;</span><br><span class="line">                 <span class="meta">@Override</span></span><br><span class="line">                 <span class="keyword">public</span> Boolean <span class="title function_">call</span><span class="params">(Integer numRetries, Throwable throwable)</span> &#123;</span><br><span class="line">                     <span class="keyword">return</span> throwable <span class="keyword">instanceof</span> RetrofitError;</span><br><span class="line">                 &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-XML-风格规定"><a href="#2-3-XML-风格规定" class="headerlink" title="2.3 XML 风格规定"></a>2.3 XML 风格规定</h2><h3 id="2-3-1-使用自关闭的标签"><a href="#2-3-1-使用自关闭的标签" class="headerlink" title="2.3.1 使用自关闭的标签"></a>2.3.1 使用自关闭的标签</h3><p>当一个XML元素没有任何内容时，你<strong>必须</strong>使用自关闭标签。<br>这是好例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:id</span>=<span class="string">&quot;@+id/text_view_profile&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是<strong>不好的</strong>例子 :</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 不要这样做! --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/text_view_profile&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-3-2-资源命名"><a href="#2-3-2-资源命名" class="headerlink" title="2.3.2 资源命名"></a>2.3.2 资源命名</h3><p>资源 ID 和名称使用小写加下划线方式 <strong>lowercase_underscore</strong>.</p>
+<h4 id="2-3-2-1-ID-命名"><a href="#2-3-2-1-ID-命名" class="headerlink" title="2.3.2.1 ID 命名"></a>2.3.2.1 ID 命名</h4><p>ID应该使用小写加下划线命名，加上元素名称为前缀，如：</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>前缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TextView</code></td>
+<td><code>text_</code></td>
+</tr>
+<tr>
+<td><code>ImageView</code></td>
+<td><code>image_</code></td>
+</tr>
+<tr>
+<td><code>Button</code></td>
+<td><code>button_</code></td>
+</tr>
+<tr>
+<td><code>Menu</code></td>
+<td><code>menu_</code></td>
+</tr>
+</tbody></table>
+<p>Image view 例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/image_profile&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Menu 例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">menu</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/menu_done&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:title</span>=<span class="string">&quot;Done&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-2-2-字符串"><a href="#2-3-2-2-字符串" class="headerlink" title="2.3.2.2 字符串"></a>2.3.2.2 字符串</h4><p>字符串名称以它们所属的部分为前缀命名，比如<code>registration_email_hint</code> 或 <code>registration_name_hint</code>。如果一个字符串<strong>不属于</strong>任何部分，那么你应该遵循下面的规则：</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>error_</code></td>
+<td>An error message</td>
+</tr>
+<tr>
+<td><code>msg_</code></td>
+<td>A regular information message</td>
+</tr>
+<tr>
+<td><code>title_</code></td>
+<td>A title, i.e. a dialog title</td>
+</tr>
+<tr>
+<td><code>action_</code></td>
+<td>An action such as “Save” or “Create”</td>
+</tr>
+</tbody></table>
+<h4 id="2-3-2-3-Styles-和-Themes"><a href="#2-3-2-3-Styles-和-Themes" class="headerlink" title="2.3.2.3 Styles 和 Themes"></a>2.3.2.3 Styles 和 Themes</h4><p>不像其他的资源，style命名方式是大写的驼峰是命名<strong>UpperCamelCase</strong></p>
+<h3 id="2-3-3-属性顺序"><a href="#2-3-3-属性顺序" class="headerlink" title="2.3.3 属性顺序"></a>2.3.3 属性顺序</h3><p>作为通用的规则，你应该把相似的属性放在一起分组，一个对常见属性良好的排序方式是</p>
+<ol>
+<li>View Id</li>
+<li>Style</li>
+<li>布局的宽和高</li>
+<li>其他的布局属性，按字母排序</li>
+<li>剩下的属性，按字母排序</li>
+</ol>
+<h2 id="2-4-测试风格规定"><a href="#2-4-测试风格规定" class="headerlink" title="2.4 测试风格规定"></a>2.4 测试风格规定</h2><h3 id="2-4-1单元测试"><a href="#2-4-1单元测试" class="headerlink" title="2.4.1单元测试"></a>2.4.1单元测试</h3><p>测试类应该跟需要测试的类名字对应，以<code>Test</code>做后缀。比如我们创建一个测试类包含对<code>DatabaseHelper</code>的测试，我们应该把它命名为 <code>DatabaseHelperTest</code>。</p>
+<p>测试方法用<code>@Test</code>注解，通常以要测试的方法名为命名开始，以测试的前置条件及/或期望结果做后缀。</p>
+<ul>
+<li>模板: <code>@Test void methodNamePreconditionExpectedBehaviour()</code></li>
+<li>例子: <code>@Test void signInWithEmptyEmailFails()</code></li>
+</ul>
+<p>如果没有它们测试也能够清楚的表达，前置条件和/或期望结果不总是必须的。</p>
+<p>有时候一个类可能包含一大堆方法，同时每个方法要求多个测试，在这种情况，推荐把测试类分割成几个。比如，如果 <code>DataManager</code>包含一大堆方法，我们可能想把它分到 <code>DataManagerSignInTest</code>, <code>DataManagerLoadUsersTest</code>等等。通常你能够知道哪些测试应该在一起，因为它们有共同的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Test_fixture">test fixtures</a>.</p>
+<h3 id="2-4-2-Espresso-测试"><a href="#2-4-2-Espresso-测试" class="headerlink" title="2.4.2 Espresso 测试"></a>2.4.2 Espresso 测试</h3><p>每一个 Espresso 测试类目标通常是一个Activity，所以它的名称应该跟目标Activity的名称匹配，以<code>Test</code>结束，如 <code>SignInActivityTest</code></p>
+<p>当使用 Espresso API ，把链式方法调用放新行是一个最佳实践。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.view))</span><br><span class="line">        .perform(scrollTo())</span><br><span class="line">        .check(matches(isDisplayed()))</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md">原文链接</a><br><a target="_blank" rel="noopener" href="http://www.suqishuo.cn/android-project-and-code-guidelines/">译文链接</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/Android-Job-from-evernote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Android-Job-from-evernote/" class="post-title-link" itemprop="url">Evernote带来的计划任务神器Android-Job</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-23 15:56:55" itemprop="dateCreated datePublished" datetime="2017-03-23T15:56:55+08:00">2017-03-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">开源框架</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在新版本安卓版本(API23以上)中，谷歌把<code>android.net.conn.CONNECTIVITY_CHANGE</code> 这个广播废弃了。总的来说，应用不应该依赖这个广播来执行相关任务，而应该使用 <code>JobScheduler</code> 或者 <code> GCMNetworkManager</code>。计划任务的执行方案还可以用 <code>AlarmManager</code>。 对于国内的开发者来说，这是一个悲剧。Android 现在提供这三种不同的API来执行计划任务.这三种API都有各自的优缺点 。 <code>android.net.conn.CONNECTIVITY_CHANGE</code> 在高版本的系统中不可用了，<code>JobScheduler</code> 在低版本的系统中又不可用，<code> GCMNetworkManager</code> 是什么？在国内不存在。而且这些API之间的不同语义和用法对开发者是一种额外的负担。这种负担体现在我们不仅仅要懂得什么时候使用合适的API,而且要为不同的环境执行同样任务提供不同分支的代码。APP需要在运行时候用合适的条件判断到底要使用哪种方式执行计划任务。幸运的是，开源的世界有伟大的公司为我们提供了灵活的轮子。</p>
+</blockquote>
+<p>Evernote 开源的 <code>Android-Job</code>  为我们带来兼容这三种API的方案，高效，简单，灵活。<code>Android-Job</code> 在运行判断使用哪种API，它提供  <code>AlarmManager</code>, <code>JobScheduler</code>和 <code>GcmNetworkManager</code>功能的超集，比如说，我们可以定义计划任务在网络连通且在充电时候执行。</p>
+<h1 id="为兼容而生"><a href="#为兼容而生" class="headerlink" title="为兼容而生"></a>为兼容而生</h1><p>上面提到的三种方案，兼容维护非常麻烦。为了彰显<code>Android-Job</code>的价值，我们有必要对这三种方案做一个分析。</p>
+<h2 id="AlarmManager"><a href="#AlarmManager" class="headerlink" title="AlarmManager"></a>AlarmManager</h2><p><code>AlarmManager</code> 的API<a target="_blank" rel="noopener" href="https://plus.google.com/+AndroidDevelopers/posts/GdNrQciPwqo">一直在改变</a> ，所以我们需要非常注意我们APP目标运行系统是哪个版本。</p>
+<p>** 优点 **</p>
+<ul>
+<li>所有设备上可用</li>
+<li>发送广播来启动一个服务执行计划很容易</li>
+</ul>
+<p>** 缺点 **</p>
+<ul>
+<li>API在不同系统版本表现不一致</li>
+<li>太多样板代码</li>
+<li>忽略了设备的状态<br><img src="/images/alarmManager.png" alt="alarmManager"></li>
+</ul>
+<h2 id="JobScheduler"><a href="#JobScheduler" class="headerlink" title="JobScheduler"></a>JobScheduler</h2><p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/job/JobScheduler.html">JobScheduler </a>只在Lollipop以上版本可用。</p>
+<p>** 优点 **</p>
+<ul>
+<li>流式API简洁易用</li>
+<li>检查设备状态</li>
+</ul>
+<p>**  缺点 **</p>
+<ul>
+<li>只在API 21+ 可用 （有些功能要求API24+）</li>
+<li>平台bug</li>
+<li>也是太多样板代码</li>
+</ul>
+<h2 id="GcmNetworkManager"><a href="#GcmNetworkManager" class="headerlink" title="GcmNetworkManager"></a>GcmNetworkManager</h2><p><a target="_blank" rel="noopener" href="https://developers.google.com/cloud-messaging/network-manager">GcmNetworkManager </a>只有在安装有Google Play的设备上可用，而且，没有被墙。</p>
+<p>** 优点 **</p>
+<ul>
+<li>跟<code>JobScheduler</code>相似的API</li>
+<li>要求minSdkVersion 9</li>
+</ul>
+<p>** 缺点 **</p>
+<ul>
+<li>是 GooglePlay ServicesSDK 的一部分</li>
+<li>不能脱离 Play Services 运行</li>
+<li>API 有很多陷阱</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>Android-Job项目作者在一篇PPT中详细的说明了这三种方案以及Android-Job的用法。由于篇幅有限且排版原因，强烈建议点击链接去看看。例子简单易懂，在这里给出PPT对应的PDF文件。还在犹豫是否要使用 Android-Job ，看了这个PDF，相信你心里就有肯定的答案了 <a target="_blank" rel="noopener" href="https://speakerd.s3.amazonaws.com/presentations/c9e9289df7df48bab2bf52db0a087248/Schedule_background_jobs_at_the_right_time_-_MTC.pdf">PDF传送门</a></p>
+<h1 id="使用Android-Job-翻译自项目说明"><a href="#使用Android-Job-翻译自项目说明" class="headerlink" title="使用Android-Job(翻译自项目说明)"></a>使用Android-Job(翻译自项目说明)</h1><p>请保证点击以下链接检查你使用的是否是最新版本<a target="_blank" rel="noopener" href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.evernote%22%20AND%20a%3A%22android-job%22">Android-Job最新版链接 </a><br>添加以下的Gradle配置到安卓项目：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在app 项目的 build.gradle 文件:</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="string">&#x27;com.evernote:android-job:1.1.7&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有在 Gradle build tools 中关闭 manifest merger，那就不用更多步骤来配置这个工具库了。否则需要手动添加权限生命和services，参考这个<a target="_blank" rel="noopener" href="https://github.com/evernote/android-job/blob/master/library/src/main/AndroidManifest.xml">AndroidManifest</a></p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p> <code>JobManager</code> 类作为入口。我们自定义的Jobs 需要继承  <code>Job</code> 类。使用对应的Builder类创建一个  <code>JobRequest</code> 然后使用 <code>JobManager</code> 创建这个计划请求。</p>
+<p>使用 <code>JobManager</code> 之前必须向初始化这个单例。我们需要提供一个 <code>Context</code> 然后添加一个 <code>JobCreator</code> 实现类.  <code>JobCreator</code> 把一个job tag 映射到一个特定的job 类。推荐在 <code>Application</code> 的 <code>onCreate()</code> 方法中 初始化 <code>JobManager</code> 。如果没有 <code>Application</code> 类的访问权限，这是<a href="FAQ.md#i-cannot-override-the-application-class-how-can-i-add-my-jobcreator">可选的方案</a>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        JobManager.create(<span class="built_in">this</span>).addJobCreator(<span class="keyword">new</span> <span class="title class_">DemoJobCreator</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoJobCreator</span> <span class="keyword">implements</span> <span class="title class_">JobCreator</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Job <span class="title function_">create</span><span class="params">(String tag)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (tag) &#123;</span><br><span class="line">            <span class="keyword">case</span> DemoSyncJob.TAG:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DemoSyncJob</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们可以开始计划要执行的任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoSyncJob</span> <span class="keyword">extends</span> <span class="title class_">Job</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;job_demo_tag&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="keyword">protected</span> Result <span class="title function_">onRunJob</span><span class="params">(Params params)</span> &#123;</span><br><span class="line">        <span class="comment">// run your job here</span></span><br><span class="line">        <span class="keyword">return</span> Result.SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">scheduleJob</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JobRequest</span>.Builder(DemoSyncJob.TAG)</span><br><span class="line">                .setExecutionWindow(<span class="number">30_000L</span>, <span class="number">40_000L</span>)</span><br><span class="line">                .build()</span><br><span class="line">                .schedule();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h3><p><code>JobRequest.Builder</code> 类有很多额外的配置选项，例如，我们可以声明条件：需要网络连接。为了使任务周期性执行，用 bundle 传递额外的参数，使得任务在重启后或在特定的时间恢复。<br>每一个Job 有一个唯一的 ID 。这个 ID 帮助我们辨别 job ，以便将来更新条件或者取消 job。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">scheduleAdvancedJob</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">PersistableBundleCompat</span> <span class="variable">extras</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PersistableBundleCompat</span>();</span><br><span class="line">    extras.putString(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;Hello world&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">jobId</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JobRequest</span>.Builder(DemoSyncJob.TAG)</span><br><span class="line">            .setExecutionWindow(<span class="number">30_000L</span>, <span class="number">40_000L</span>)</span><br><span class="line">            .setBackoffCriteria(<span class="number">5_000L</span>, JobRequest.BackoffPolicy.EXPONENTIAL)</span><br><span class="line">            .setRequiresCharging(<span class="literal">true</span>)</span><br><span class="line">            .setRequiresDeviceIdle(<span class="literal">false</span>)</span><br><span class="line">            .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)</span><br><span class="line">            .setExtras(extras)</span><br><span class="line">            .setRequirementsEnforced(<span class="literal">true</span>)</span><br><span class="line">            .setPersisted(<span class="literal">true</span>)</span><br><span class="line">            .setUpdateCurrent(<span class="literal">true</span>)</span><br><span class="line">            .build()</span><br><span class="line">            .schedule();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">schedulePeriodicJob</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">jobId</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JobRequest</span>.Builder(DemoSyncJob.TAG)</span><br><span class="line">            .setPeriodic(TimeUnit.MINUTES.toMillis(<span class="number">15</span>), TimeUnit.MINUTES.toMillis(<span class="number">5</span>))</span><br><span class="line">            .setPersisted(<span class="literal">true</span>)</span><br><span class="line">            .build()</span><br><span class="line">            .schedule();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">scheduleExactJob</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">jobId</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JobRequest</span>.Builder(DemoSyncJob.class)</span><br><span class="line">            .setExact(<span class="number">20_000L</span>)</span><br><span class="line">            .setPersisted(<span class="literal">true</span>)</span><br><span class="line">            .build()</span><br><span class="line">            .schedule();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">cancelJob</span><span class="params">(<span class="type">int</span> jobId)</span> &#123;</span><br><span class="line">    JobManager.instance().cancel(jobId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果非周期性的  <code>Job</code> 执行失败,我们可以设定恢复标准重新计划这个 job</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RescheduleDemoJob</span> <span class="keyword">extends</span> <span class="title class_">Job</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="keyword">protected</span> Result <span class="title function_">onRunJob</span><span class="params">(Params params)</span> &#123;</span><br><span class="line">        <span class="comment">// 一些异常情况发生，稍后重试这个Job</span></span><br><span class="line">        <span class="keyword">return</span> Result.RESCHEDULE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onReschedule</span><span class="params">(<span class="type">int</span> newJobId)</span> &#123;</span><br><span class="line">        <span class="comment">// 恢复的Job有一个新的 ID</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>提醒:</strong>  谷歌在安卓 Marshmallow  版本引入自动备份功能，所有的 job 信息保存在一个文件名为 <code>evernote_jobs.xml</code>的 shared preference ，   以及文件名为<code>evernote_jobs.db</code> 的数据库中. 我们应该排除这些文件，避免他们被自动备份。<br>我们可以定义一个resource XML 文件 (比如, <code>res/xml/backup_config.xml</code>) 内容如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">full-backup-content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">domain</span>=<span class="string">&quot;sharedpref&quot;</span> <span class="attr">path</span>=<span class="string">&quot;evernote_jobs.xml&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">domain</span>=<span class="string">&quot;database&quot;</span> <span class="attr">path</span>=<span class="string">&quot;evernote_jobs.db&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">full-backup-content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在应用的 <code>AndroidManifest.xml</code>指向这个文件:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span> <span class="attr">...</span>  <span class="attr">android:fullBackupContent</span>=<span class="string">&quot;@xml/backup_config&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="代码混淆"><a href="#代码混淆" class="headerlink" title="代码混淆"></a>代码混淆</h3><p>这个库没有使用反射，但是它依赖两个 <code>Service</code> 以及两个 <code>BroadcastReceiver</code> 为了避免任何可能出现的问题，不应该混淆这四个类。这个库打包了它自己的混淆配置，所以我们不需要做任何额外的配置。以防万一，也可以在我们项目的混淆配置中添加<a href="library/proguard.txt">这些规则</a> </p>
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><p> <a href="FAQ.md">点击这里</a>查看更多的疑问解答。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://blog.evernote.com/tech/2015/10/26/unified-job-library-android/">evernote的Blog</a><br><a target="_blank" rel="noopener" href="https://speakerdeck.com/vrallev/scheduling-background-job-on-android-at-the-right-time">作者Ralf的PPT</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

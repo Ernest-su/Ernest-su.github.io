@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在安卓移动APP开发过程中，一般使用安卓默认的sqlite数据库做数据持久化存储。虽然android提供了ContentProvider等框架支持，但是写SQL语句依然是一件不少程序猿的头疼的事。无论是简单的SQL语句，还是复杂的多表查询，都是影响开发效率的苦力活。幸运的是，我们有类似于Hibernate&#x2F;MyBatis的ORM框架用于安卓开发中。今天我们介绍gitHub上热门的一个专注于A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="greenDAO项目实战">
+<meta property="og:url" content="https://ernest-su.github.io/greendao-project-practice/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="在安卓移动APP开发过程中，一般使用安卓默认的sqlite数据库做数据持久化存储。虽然android提供了ContentProvider等框架支持，但是写SQL语句依然是一件不少程序猿的头疼的事。无论是简单的SQL语句，还是复杂的多表查询，都是影响开发效率的苦力活。幸运的是，我们有类似于Hibernate&#x2F;MyBatis的ORM框架用于安卓开发中。今天我们介绍gitHub上热门的一个专注于A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://greenrobot.org/wordpress/wp-content/uploads/greenDAO-orm-320.png">
+<meta property="article:published_time" content="2017-03-16T09:13:27.000Z">
+<meta property="article:modified_time" content="2019-02-14T01:48:22.438Z">
+<meta property="article:author" content="Ernest">
+<meta property="article:tag" content="安卓">
+<meta property="article:tag" content="GreenDAO">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="开发效率">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://greenrobot.org/wordpress/wp-content/uploads/greenDAO-orm-320.png">
+
+<link rel="canonical" href="https://ernest-su.github.io/greendao-project-practice/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>greenDAO项目实战 | Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/greendao-project-practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          greenDAO项目实战
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-16 17:13:27" itemprop="dateCreated datePublished" datetime="2017-03-16T17:13:27+08:00">2017-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" itemprop="url" rel="index"><span itemprop="name">开发效率</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>  在安卓移动APP开发过程中，一般使用安卓默认的sqlite数据库做数据持久化存储。虽然android提供了ContentProvider等框架支持，但是写SQL语句依然是一件不少程序猿的头疼的事。无论是简单的SQL语句，还是复杂的多表查询，都是影响开发效率的苦力活。幸运的是，我们有类似于Hibernate/MyBatis的ORM框架用于安卓开发中。今天我们介绍gitHub上热门的一个专注于Android开发的ORM框架——greenDAO.</p>
+</blockquote>
+<h2 id="greenDAO简介"><a href="#greenDAO简介" class="headerlink" title="greenDAO简介"></a>greenDAO简介</h2><p>greenDAO是一个轻量&amp;快速的安卓ORM框架,把对象和Sqlite数据库关联映射起来。它专门为Android做了高度的优化，高性能，消耗极少的内存。<br><strong>greenDAO首页, 开发文档以及技术支持链接: <a target="_blank" rel="noopener" href="http://greenrobot.org/greendao/">http://greenrobot.org/greendao/</a></strong><br><img src="http://greenrobot.org/wordpress/wp-content/uploads/greenDAO-orm-320.png" alt="greendao图解"><br><strong>GreenDAO特色功能</strong>：</p>
+<ul>
+<li>稳健：GreenDAO从2011开始，就被无数著名的应用程序使用 </li>
+<li>超级简单：简洁直截了当的API，支持注释（V3以上版本） </li>
+<li>小巧：框架小于150K,并且只是普通的java jar（没有CPU相关的本地部分）减少构建时间避免超出 65k方法数限制 </li>
+<li>快速：可能是全球最快的Android平台ORM框架，得益于gradle插件，框架能够自动智能执行代码生成 </li>
+<li>安全且人性化的查询API：QueryBuilder使用属性常量，避免拼写错误（这是SQL语句拼接查询常见的错误） </li>
+<li>强大的连接：跨实体的查询，甚至嵌套复杂的多表链接和多条件关系查询 </li>
+<li>灵活的属性类型：在实体中使用自定义的类或枚举表示数据 </li>
+<li>加密：支持SQLCipher加密数据库</li>
+<li>活跃的社区:超过7000 GitHub stars<h2 id="在项目中使用GreenDAO"><a href="#在项目中使用GreenDAO" class="headerlink" title="在项目中使用GreenDAO"></a>在项目中使用GreenDAO</h2>greenDAO 在 Maven 仓库可用. 请保证点击以下链接检查你使用的是否是最新版本<a target="_blank" rel="noopener" href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.greenrobot%22%20AND%20a%3A%22greendao%22">greenDAO最新版链接 </a>| <a target="_blank" rel="noopener" href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.greenrobot%22%20AND%20a%3A%22greendao-generator%22">greenDAO-generator最新版链接</a></li>
+</ul>
+<p>添加以下的Gradle配置到安卓项目：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在项目根目录的 build.gradle 文件:</span></span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral() &lt;-- 添加这个仓库</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">&#x27;com.android.tools.build:gradle:2.3.0&#x27;</span></span><br><span class="line">        classpath <span class="string">&#x27;org.greenrobot:greendao-gradle-plugin:3.2.1&#x27;</span> &lt;-- 添加greendao用到的gradle插件，用于生成GreenDao用到的代码（注意使用最新版本）</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 在app 项目的 build.gradle 文件:</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;com.android.application&#x27;</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;org.greenrobot.greendao&#x27;</span> &lt;-- 应用greendao的gradle插件(用于生成GreenDao用到的代码)</span><br><span class="line"><span class="comment">//------------</span></span><br><span class="line"><span class="comment">//(可选)配置数据库版本，生成的Dao包路径(无特殊要求除了schemaVersion，daoPackage和targetGenDir一般不用配置，使用默认的)</span></span><br><span class="line">greendao &#123;</span><br><span class="line">    schemaVersion <span class="number">1</span></span><br><span class="line">    daoPackage <span class="string">&#x27;com.example.greendao&#x27;</span></span><br><span class="line">    targetGenDir <span class="string">&#x27;src/main/java&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//------------</span></span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="string">&#x27;org.greenrobot:greendao:3.2.0&#x27;</span> &lt;-- 添加greenDao框架依赖</span><br><span class="line"><span class="comment">//如果需要数据库加密，要引入一下sqlcipher加密库</span></span><br><span class="line"><span class="comment">//compile &#x27;net.zetetic:android-database-sqlcipher:3.5.4&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong> 这些配置使得GreenDao插件在Gradle构建过程中触发，当项目构建时.插件生成 DaoMaster, DaoSession 以及实体类对应的DAO.这些类是GreenDao框架的核心类</p>
+<h3 id="声明实体类"><a href="#声明实体类" class="headerlink" title="声明实体类"></a>声明实体类</h3><blockquote>
+<p>首先，我们声明一个实体类Note,一个自定义的枚举类型NoteType。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">NoteType</span> &#123;</span><br><span class="line">    TEXT, LIST, PICTURE</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Note</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id(autoincrement = true)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">private</span> String text;</span><br><span class="line">    <span class="keyword">private</span> String comment;</span><br><span class="line">    <span class="keyword">private</span> java.util.Date date;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Convert(converter = NoteTypeConverter.class, columnType = String.class)</span></span><br><span class="line">    <span class="keyword">private</span> NoteType type;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Generated(hash = 1272611929)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Note</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Note</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Generated(hash = 1686394253)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Note</span><span class="params">(Long id, <span class="meta">@NotNull</span> String text, String comment, java.util.Date date, NoteType type)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">        <span class="built_in">this</span>.text = text;</span><br><span class="line">        <span class="built_in">this</span>.comment = comment;</span><br><span class="line">        <span class="built_in">this</span>.date = date;</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getText</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> text;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 非空值声明，保证这个只在保存到数据之前是非空的**/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setText</span><span class="params">(<span class="meta">@NotNull</span> String text)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.text = text;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//省略了其他的geter,setter</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的实体类代码中：</p>
+<p><code>@Entity</code>注解表明这是一个GreenDao映射到数据的实体类，括号内的配置是可选的。</p>
+<p><code>@Id</code>注解表明这是主键,<code>autoincrement = true</code>表示自增，<strong>注意</strong>GreenDao主键需要是Long类型，不能是long或者int之类的其他类型。（这也是安卓推荐的主键类型）</p>
+<p><code>@NotNull</code> 注解表明这是一个非空值，在它的setter参数也注明了非空，保证这个只在保存到数据之前是非空的。</p>
+<p><code>@Convert(converter = NoteTypeConverter.class, columnType = String.class)</code>这个注解实现自定义类型到数据库支持的类型的转换。<code>converter = NoteTypeConverter.class</code>指定转换器是NoteTypeConverter这个类（下面马上介绍），<code>columnType = String.class</code>指定数据库对应的列类型是文本类型。通过Convert我们可以用自然的方式表达各种属性。</p>
+<p><code>@Transient</code>上面的例子没有标出。这个注解表明此字段不存储到数据库中，用于不用持久化的字段</p>
+<p>值得说明的是，实体类的构造函数和getter/setter是greendao在项目build的时候自动生成的，是不是很方便呢？</p>
+<p>接下来我们再看看转换器的写法。转换器听起来很高级有没有？但是写起来出乎意料的简单。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoteTypeConverter</span> <span class="keyword">implements</span> <span class="title class_">PropertyConverter</span>&lt;NoteType, String&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> NoteType <span class="title function_">convertToEntityProperty</span><span class="params">(String databaseValue)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> NoteType.valueOf(databaseValue);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">convertToDatabaseValue</span><span class="params">(NoteType entityProperty)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> entityProperty.name();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>每个转换器都实现了<code>PropertyConverter&lt;P, D&gt;</code> 这个接口。P是实体类中自定义的类型，D是数据库支持的类型。</p>
+<p>接口方法<code>convertToEntityProperty</code>接受一个数据库支持类型的参数，返回实体类中自定义的类型。</p>
+<p>接口方法<code>convertToDatabaseValue</code>接受一个实体类中自定义的类型的参数，返回数据库支持类型。</p>
+<p>通过实现这两个方法，我们就完成了实体类的自定义类型到数据库支持类型的映射。在本例中，<code>NoteType</code>这个自定义的枚举类型得以用文本方式存储到数据库。</p>
+<h3 id="在Application中配置DaoSession"><a href="#在Application中配置DaoSession" class="headerlink" title="在Application中配置DaoSession"></a>在Application中配置DaoSession</h3><blockquote>
+<p>接着，我们在App中配置DaoSession，作为数据统一操作的对象，注意DaoSession所在的包如果未配置，默认跟声明的实体类包名相同</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="comment">/**是否加密标志。通过这个例子展示给我们greendao从用SQLCipher加密数据库到标准的sqlite切换时多么简单.打开数据库加密需要引入SQLCipher相关的库*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="variable">ENCRYPTED</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">/**全局公用的DaoSession**/</span></span><br><span class="line">    <span class="keyword">private</span> DaoSession daoSession;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        <span class="comment">//DevOpenHelper简单的在数据库需要升级的时候重建数据表，在实际项目中，如果我们需要保存旧版本的数据，需要自己实现一个OpenHelper,把旧版本数据迁移到新版本中。</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">DevOpenHelper</span> <span class="variable">helper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DevOpenHelper</span>(<span class="built_in">this</span>, ENCRYPTED ? <span class="string">&quot;notes-db-encrypted&quot;</span> : <span class="string">&quot;notes-db&quot;</span>);</span><br><span class="line">        <span class="type">Database</span> <span class="variable">db</span> <span class="operator">=</span> ENCRYPTED ? helper.getEncryptedWritableDb(<span class="string">&quot;super-secret&quot;</span>) : helper.getWritableDb();</span><br><span class="line">        daoSession = <span class="keyword">new</span> <span class="title class_">DaoMaster</span>(db).newSession();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> DaoSession <span class="title function_">getDaoSession</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> daoSession;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>** 提醒 **<br>记得在<code>AndroidManifest.xml</code>中配置App.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.App&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>到这里，我们从实体类的声明，数据库操作入口都已经建立好了。没有写一行SQL，是不是有一种畅快淋漓的感觉？下面我们用几个代码片段展示一下如何通过greendao进行数据的增删改查。</p>
+<h3 id="查询所有的note列表"><a href="#查询所有的note列表" class="headerlink" title="查询所有的note列表"></a>查询所有的note列表</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 获得note对应的DAO。Dao在build的时候自动生成</span></span><br><span class="line"><span class="type">DaoSession</span> <span class="variable">daoSession</span> <span class="operator">=</span> ((App) getApplication()).getDaoSession();</span><br><span class="line"><span class="comment">//我们通过这个noteDao进行增删改查的操作</span></span><br><span class="line"><span class="type">NoteDao</span> <span class="variable">noteDao</span> <span class="operator">=</span> daoSession.getNoteDao();</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询所有的note数据</span></span><br><span class="line">List&lt;Note&gt; notes = noteDao.loadAll();</span><br><span class="line"><span class="comment">// 查询所有的note数据, 根据note的文本内容根据a-z升序排序.这里的NoteDao.Properties.Text是greendao自动生成的，上面提到的属性常量。 </span></span><br><span class="line">notes = noteDao.queryBuilder().orderAsc(NoteDao.Properties.Text).build().list();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="根据id来查询一个note记录-修改后再保存到数据库里"><a href="#根据id来查询一个note记录-修改后再保存到数据库里" class="headerlink" title="根据id来查询一个note记录,修改后再保存到数据库里"></a>根据id来查询一个note记录,修改后再保存到数据库里</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">Long</span> <span class="variable">id</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"><span class="type">Note</span> <span class="variable">note</span> <span class="operator">=</span> noteDao.load(id);</span><br><span class="line"></span><br><span class="line">note.setText(<span class="string">&quot;这是修改后的内容文本&quot;</span>);</span><br><span class="line">note.setComment(<span class="string">&quot;这是修改后的comment&quot;</span>);</span><br><span class="line">noteDao.save(note);</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除所有note记录"><a href="#删除所有note记录" class="headerlink" title="删除所有note记录"></a>删除所有note记录</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noteDao.deleteAll();</span><br></pre></td></tr></table></figure>
+<h3 id="根据id删除一条note记录"><a href="#根据id删除一条note记录" class="headerlink" title="根据id删除一条note记录"></a>根据id删除一条note记录</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Long</span> <span class="variable">id</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">noteDao.deleteByKey(id);</span><br></pre></td></tr></table></figure>
+<h3 id="添加一条note记录"><a href="#添加一条note记录" class="headerlink" title="添加一条note记录"></a>添加一条note记录</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Note</span> <span class="variable">note</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Note</span>();</span><br><span class="line">note.setText(<span class="string">&quot;这是note 内容文本&quot;</span>);</span><br><span class="line">note.setComment(<span class="string">&quot;这是note的comment&quot;</span>);</span><br><span class="line">note.setDate(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">note.setType(NoteType.TEXT);</span><br><span class="line">noteDao.insert(note);</span><br></pre></td></tr></table></figure>
+
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>greenDao的简单介绍就到这里。后续介绍GreenDao的进阶使用，包括<code>@ToOne</code> 一对一， <code>@ToMany</code> 一对多等使用介绍。同时介绍如何在现有项目中迁移到GreenDao，包括用统一的数据库管理类来对GreenDao进行轻度封装等。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ernest 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%89%E5%8D%93/" rel="tag"># 安卓</a>
+              <a href="/tags/GreenDAO/" rel="tag"># GreenDAO</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" rel="tag"># 开发效率</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/how-to-build-api-mock-service/" rel="prev" title="如何快速搭建模拟接口服务">
+      <i class="fa fa-chevron-left"></i> 如何快速搭建模拟接口服务
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/wechat-subscription-not-that-simple/" rel="next" title="微信公众号没有你想的那么简单">
+      微信公众号没有你想的那么简单 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#greenDAO%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">greenDAO简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8GreenDAO"><span class="nav-number">2.</span> <span class="nav-text">在项目中使用GreenDAO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">声明实体类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Application%E4%B8%AD%E9%85%8D%E7%BD%AEDaoSession"><span class="nav-number">2.2.</span> <span class="nav-text">在Application中配置DaoSession</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E7%9A%84note%E5%88%97%E8%A1%A8"><span class="nav-number">2.3.</span> <span class="nav-text">查询所有的note列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AEid%E6%9D%A5%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AAnote%E8%AE%B0%E5%BD%95-%E4%BF%AE%E6%94%B9%E5%90%8E%E5%86%8D%E4%BF%9D%E5%AD%98%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E9%87%8C"><span class="nav-number">2.4.</span> <span class="nav-text">根据id来查询一个note记录,修改后再保存到数据库里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89note%E8%AE%B0%E5%BD%95"><span class="nav-number">2.5.</span> <span class="nav-text">删除所有note记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AEid%E5%88%A0%E9%99%A4%E4%B8%80%E6%9D%A1note%E8%AE%B0%E5%BD%95"><span class="nav-number">2.6.</span> <span class="nav-text">根据id删除一条note记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%80%E6%9D%A1note%E8%AE%B0%E5%BD%95"><span class="nav-number">2.7.</span> <span class="nav-text">添加一条note记录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

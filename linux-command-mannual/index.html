@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前两天逛GitHub时候发现了一个命令行手册项目jaywcjlove&#x2F;linux-command 手册网站，觉得非常实用。GitHub的Pages很方便，但是国内访问有时候比较慢。虽然网上类似的在线手册很多了，但是我觉得一个手册应该是随手可用，而且即使在没有网时候，也可随时翻阅的。于是打算用一天半天把手册做成个离线版简易手册APP。  准备工作翻了一下GitHub上项目的README，发现作者很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 命令手册安卓版">
+<meta property="og:url" content="https://ernest-su.github.io/linux-command-mannual/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="前两天逛GitHub时候发现了一个命令行手册项目jaywcjlove&#x2F;linux-command 手册网站，觉得非常实用。GitHub的Pages很方便，但是国内访问有时候比较慢。虽然网上类似的在线手册很多了，但是我觉得一个手册应该是随手可用，而且即使在没有网时候，也可随时翻阅的。于是打算用一天半天把手册做成个离线版简易手册APP。  准备工作翻了一下GitHub上项目的README，发现作者很">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-22T11:30:55.000Z">
+<meta property="article:modified_time" content="2019-02-14T01:48:22.440Z">
+<meta property="article:author" content="Ernest">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="安卓">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ernest-su.github.io/linux-command-mannual/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux 命令手册安卓版 | Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/linux-command-mannual/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 命令手册安卓版
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-22 19:30:55" itemprop="dateCreated datePublished" datetime="2017-03-22T19:30:55+08:00">2017-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>前两天逛GitHub时候发现了一个命令行手册项目<a target="_blank" rel="noopener" href="https://github.com/jaywcjlove/linux-command.git">jaywcjlove/linux-command</a> <a target="_blank" rel="noopener" href="https://jaywcjlove.github.io/linux-command/">手册网站</a>，觉得非常实用。GitHub的Pages很方便，但是国内访问有时候比较慢。虽然网上类似的在线手册很多了，但是我觉得一个手册应该是随手可用，而且即使在没有网时候，也可随时翻阅的。于是打算用一天半天把手册做成个离线版简易手册APP。</p>
+</blockquote>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>翻了一下GitHub上项目的README，发现作者很贴心的把爬虫抓到的数据保存成MarkDown格式了。不得不说一下，MarkDown是程序员最喜欢的文档格式之一。把项目clone到本地，手册的数据来源就准备好了。再次 感谢作者的辛勤付出。</p>
+<h2 id="MarkDown解析"><a href="#MarkDown解析" class="headerlink" title="MarkDown解析"></a>MarkDown解析</h2><p>安卓没有原生支持MarkDown的控件，在GitHub上用markdown为关键字搜了一下，<a target="_blank" rel="noopener" href="https://github.com/sirthias/pegdown">pegdown</a> 这个MarkDownn解析库是最多star的。遗憾的是，尽管目前仍然是最流行的MarkDown解析库之一，作者在三个多月前声明这个项目停止维护了。不过作者推荐了<a target="_blank" rel="noopener" href="https://github.com/vsch">@vsch</a>的<a target="_blank" rel="noopener" href="https://github.com/vsch/flexmark-java">flex-mark-java</a>,另一个性能优越的markdown解析库。</p>
+<p><code>flexmark-java</code>解析架构基于<a target="_blank" rel="noopener" href="https://github.com/atlassian/commonmark-java">commonmark-java</a>,另一款解析库(开源的世界就是这么任性啊),想到罗永浩的那句生命不息，折腾不止，决定先用<code>commonmark-java</code>解析，后面再切换到<code>flexmark-java</code>。尽管是最简单的引用，并没有怎么折腾。</p>
+<h2 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h2><p>手册的数据，解析都准备好了，还有一个手册必不可少的功能——搜索。以前做项目的时候都是用EditText+Button来实现搜索功能的。虽然一直知道安卓有个原生的searchView，但是项目做视觉设计的小伙伴设计出来的视觉不给searchView用武之地。自从进TV应用开发的坑后，也好久没有开发手机APP了。基于这两个原因，决定在这个小应用中学习一下searchView的使用。<br>计划实现的是带搜索建议的searchView,这样可以尽量的简化在手机上的输入。searchView的配置很简单，但是搜索建议需要有一定的学习。<br>安卓现在推荐的是ActionBar中搜索，除了要增加一点actionView的配置，其他的跟searchView大同小异。正所谓磨刀不误砍柴工，何况之前没有系统的学习过searchView，于是开始找百度，找博客补习功课。<br>以searchView搜索看了几篇配置博文后，发现一个博客把谷歌的searchView介绍做了一个专题的介绍，于是把这几篇文章细读了一遍。在读这几篇译文的时候想起很多大牛的教导，要读就读一手的文档，最好是出自代码作者之手的，再次一点就是读一手文档的翻译。除了这两种文章干货较多，其他类型的文章往往介绍得不够全面。<br><a target="_blank" rel="noopener" href="http://developer.android.com/guide/topics/search/search-dialog.html">英文原文（需要翻墙）</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/hudashi/article/details/7052815">译文第一篇：[Searchable(一)]</a>(剩下的几篇链接就不贴了，在文末有上下篇的链接跳转)</p>
+<p>依照译文的介绍，我对搜索功能有了大概的方向。主要做了以下几点：</p>
+<ul>
+<li>把前面获取到的MD文件放到assets目录下，用<code>AssetsManager</code>进行管理，这样就可以不用数据库了。展示命令详情的时候，也可以直接读取到命令对应文件流，再方便不过了。</li>
+<li><code>searchView</code>的搜索建议需要有一个<code>ContentProvider</code>来提供搜索建议的数据源，没有数据库怎么用ContentProvider? 答案是<code>MatrixCursor</code>。<code>MatrixCursor</code>可以做到模拟数据库的作用，也提供方法方便插入数据等。</li>
+<li>有了实现<code>ContentProvider</code>的思路,只需把<code>AssetsManager</code>获取到的命令文件名作为数据，提供给<code>searchView</code>来查询就可以了。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>手册的实现并没有什么难度，在补充了相关的知识后，只需要不到半天的时间就可以搞定了。项目虽小，但是还是给我不少收获的。之前看到有一篇文章，名字叫《提问的智慧》。搜索其实就是向机器提问的一种方式，科学的搜索关键词，合适的网站搜索事半功倍。搜索还是首选 <a target="_blank" rel="noopener" href="http://www.google.com/">Google.com</a> 和 <a target="_blank" rel="noopener" href="http://stackoverflow.com/">stackoverflow.com</a></p>
+<p>项目地址：<br><a target="_blank" rel="noopener" href="https://github.com/Ernest-su/LinuxCmd">GitHub</a><br><a target="_blank" rel="noopener" href="https://git.coding.net/ernest/LinuxCmd.git">coding.net</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ernest 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/%E5%AE%89%E5%8D%93/" rel="tag"># 安卓</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/lottie-behind-the-scenes-of-our-new-open-source-animation-tool/" rel="prev" title="Lottie,我们幕后新的开源动效工具">
+      <i class="fa fa-chevron-left"></i> Lottie,我们幕后新的开源动效工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android-Job-from-evernote/" rel="next" title="Evernote带来的计划任务神器Android-Job">
+      Evernote带来的计划任务神器Android-Job <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MarkDown%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">MarkDown解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">搜索功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

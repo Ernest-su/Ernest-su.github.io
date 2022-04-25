@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="相信大家在移动APP开发中，无论是做安卓还是iOS开发，都会遇到一个很尴尬的问题,接口没有开发好。而请求网络接口数据是开发中开发流程的第一步，因此方便快捷的模拟接口返回数据给APP，有助于提高开发效率。  下面介绍2个工具来搭建模拟接口服务器。  moco ngrok  moco 在过去，我们通常部署一个war包到应用服务器，如Jetty或Tomcat等。我们都知道，开发一个war包然后部署到应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何快速搭建模拟接口服务">
+<meta property="og:url" content="https://ernest-su.github.io/how-to-build-api-mock-service/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="相信大家在移动APP开发中，无论是做安卓还是iOS开发，都会遇到一个很尴尬的问题,接口没有开发好。而请求网络接口数据是开发中开发流程的第一步，因此方便快捷的模拟接口返回数据给APP，有助于提高开发效率。  下面介绍2个工具来搭建模拟接口服务器。  moco ngrok  moco 在过去，我们通常部署一个war包到应用服务器，如Jetty或Tomcat等。我们都知道，开发一个war包然后部署到应">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-03T09:30:55.000Z">
+<meta property="article:modified_time" content="2019-02-14T01:48:22.439Z">
+<meta property="article:author" content="Ernest">
+<meta property="article:tag" content="安卓">
+<meta property="article:tag" content="moco">
+<meta property="article:tag" content="ngrok">
+<meta property="article:tag" content="api">
+<meta property="article:tag" content="模拟数据">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ernest-su.github.io/how-to-build-api-mock-service/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>如何快速搭建模拟接口服务 | Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/how-to-build-api-mock-service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何快速搭建模拟接口服务
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-03 17:30:55" itemprop="dateCreated datePublished" datetime="2017-03-03T17:30:55+08:00">2017-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-14 09:48:22" itemprop="dateModified" datetime="2019-02-14T09:48:22+08:00">2019-02-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" itemprop="url" rel="index"><span itemprop="name">开发效率</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>相信大家在移动APP开发中，无论是做安卓还是iOS开发，都会遇到一个很尴尬的问题,接口没有开发好。而请求网络接口数据是开发中开发流程的第一步，因此方便快捷的模拟接口返回数据给APP，有助于提高开发效率。</p>
+</blockquote>
+<p>下面介绍2个工具来搭建模拟接口服务器。</p>
+<ul>
+<li>moco</li>
+<li>ngrok</li>
+</ul>
+<h1 id="moco"><a href="#moco" class="headerlink" title="moco"></a>moco</h1><blockquote>
+<p>在过去，我们通常部署一个war包到应用服务器，如Jetty或Tomcat等。我们都知道，开发一个war包然后部署到应用程序服务器太无聊，即使我们使用内嵌服务器，只要我们改变一点点，war包就要重新部署。  </p>
+</blockquote>
+<p> <strong>moco是一款开源的专注于模拟接口数据的开源工具。它有以下优势：</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 使用简单：提供下载一个jar文件外加简单的json配置就可运行的方式</li>
+<li><input checked="" disabled="" type="checkbox"> 配置灵活：可以用独立jar包加载json方式配置，也可以写java代码配置</li>
+<li><input checked="" disabled="" type="checkbox"> 高度可配置：可以对url，参数,请求方法，返回内容等进行配置</li>
+<li><input checked="" disabled="" type="checkbox"> 扩展强大：HTTPS，Socket，JUnit 集成，Maven 插件，Gradle 插件，Shell，Scala，满足你不同爱好</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><ul>
+<li><p>下载 <a target="_blank" rel="noopener" href="https://repo1.maven.org/maven2/com/github/dreamhead/moco-runner/0.11.0/moco-runner-0.11.0-standalone.jar">moco独立运行程序</a></p>
+</li>
+<li><p>新建moco配置文件如下(foo.json):</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;response&quot;</span> <span class="punctuation">:</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;text&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;Hello, Moco&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>使用配置文件运行moco独立运行文件.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar moco-runner-&lt;version&gt;-standalone.jar http -p 12306 -c foo.json</span><br></pre></td></tr></table></figure></li>
+<li><p>现在，打开浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:12306/">http://localhost:12306</a> ，你会看见配置的返回内容”Hello, Moco”</p>
+</li>
+</ul>
+<p>更多使用方法，请参考<a target="_blank" rel="noopener" href="https://github.com/dreamhead/moco/blob/master/moco-doc/apis.md#content">moco的github说明文档</a></p>
+<hr>
+<h1 id="ngrok"><a href="#ngrok" class="headerlink" title="ngrok"></a>ngrok</h1><p>如果是个人开发，一个简单灵活的接口服务器就已经搭建成功了。APP只要把上文的<code>localhost</code>换成运行moco电脑的IP就能请求到模拟的数据。但是，手机和电脑需要同一个局域网。如果是团队开发，或者手机和电脑不在同一个局域网怎么办？ngrok就是用来解决这个问题的。</p>
+<blockquote>
+<p>ngrok提供了一个能够在公网安全访问内网Web主机的工具，能捕获所有HTTP请求的内容，也支持TCP端口映射，支持Linux、Windows、Mac OS X 等平台。</p>
+</blockquote>
+<p><strong>注意</strong><br>ngrok V1.X的版本是可以免费支持将一个固定的二级域名指向本机的，不过作者已经把 V2.X的版本商业化,我们使用一个国内免费提供的服务。网址 <a target="_blank" rel="noopener" href="http://qydev.com/">http://qydev.com</a></p>
+<ol>
+<li><p>下载windows/linux/mac版本的客户端，解压到你喜欢的目录</p>
+</li>
+<li><p>在命令行下进入到解压目录下</p>
+</li>
+<li><p>执行 ngrok -config=ngrok.cfg -subdomain xxx 12306 //(xxx 是你自定义的域名前缀,12306是moco的端口)</p>
+</li>
+<li><p>如果开启成功 你就可以使用 xxx.tunnel.qydev.com 来访问你本机的 <code>127.0.0.1:12306</code>的服务啦</p>
+</li>
+</ol>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><p> 打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:4040/">http://127.0.0.1:4040</a> 可以查看ngrok访问情况。</p>
+<p> 在linux下，ngrok 不能用 &amp; 实现后台运行，我们可以使用使用screen这个命令，步骤如下：</p>
+<p> 安装screen apt-get install screen 运行 screen -S</p>
+<p> 任意名字（例如：ngork） 然后运行ngrok启动命令</p>
+<p> 最后按快捷键<code>ctrl+A+D</code>即可保持ngrok后台运行</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ernest 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%89%E5%8D%93/" rel="tag"># 安卓</a>
+              <a href="/tags/moco/" rel="tag"># moco</a>
+              <a href="/tags/ngrok/" rel="tag"># ngrok</a>
+              <a href="/tags/api/" rel="tag"># api</a>
+              <a href="/tags/%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE/" rel="tag"># 模拟数据</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/greendao-project-practice/" rel="next" title="greenDAO项目实战">
+      greenDAO项目实战 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#moco"><span class="nav-number">1.</span> <span class="nav-text">moco</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ngrok"><span class="nav-number">2.</span> <span class="nav-text">ngrok</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">3.</span> <span class="nav-text">小技巧</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

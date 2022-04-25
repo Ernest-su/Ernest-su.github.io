@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="dcm4che纯java编写，网上有搜到android版本的jar包，是dcm4che低版本，只在安卓平台上实现了reader,没实现writer。github上的版本有reader和writer实现，但是是依赖javax相关包的，安卓上没有这些包。所以用不了github上的版本。 Modules dcm4che-audit dcm4che-audit-keycloak dcm4che-conf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android处理dicom文件记录">
+<meta property="og:url" content="https://ernest-su.github.io/Android%E5%A4%84%E7%90%86dicom%E6%96%87%E4%BB%B6%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="dcm4che纯java编写，网上有搜到android版本的jar包，是dcm4che低版本，只在安卓平台上实现了reader,没实现writer。github上的版本有reader和writer实现，但是是依赖javax相关包的，安卓上没有这些包。所以用不了github上的版本。 Modules dcm4che-audit dcm4che-audit-keycloak dcm4che-conf">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-29T09:30:55.000Z">
+<meta property="article:modified_time" content="2021-11-01T01:38:57.113Z">
+<meta property="article:author" content="Ernest">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="dicom">
+<meta property="article:tag" content="dcm">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ernest-su.github.io/Android%E5%A4%84%E7%90%86dicom%E6%96%87%E4%BB%B6%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android处理dicom文件记录 | Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/Android%E5%A4%84%E7%90%86dicom%E6%96%87%E4%BB%B6%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android处理dicom文件记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-29 17:30:55" itemprop="dateCreated datePublished" datetime="2021-10-29T17:30:55+08:00">2021-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-01 09:38:57" itemprop="dateModified" datetime="2021-11-01T09:38:57+08:00">2021-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="dcm4che"><a href="#dcm4che" class="headerlink" title="dcm4che"></a>dcm4che</h1><p>纯java编写，网上有搜到android版本的jar包，是dcm4che低版本，只在安卓平台上实现了reader,没实现writer。github上的版本有reader和writer实现，但是是依赖javax相关包的，安卓上没有这些包。所以用不了github上的版本。</p>
+<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><ul>
+<li>dcm4che-audit</li>
+<li>dcm4che-audit-keycloak</li>
+<li>dcm4che-conf<ul>
+<li>dcm4che-conf-api</li>
+<li>dcm4che-conf-api-hl7</li>
+<li>dcm4che-conf-json</li>
+<li>dcm4che-conf-json-schema</li>
+<li>dcm4che-conf-ldap</li>
+<li>dcm4che-conf-ldap-audit</li>
+<li>dcm4che-conf-ldap-hl7</li>
+<li>dcm4che-conf-ldap-imageio</li>
+<li>dcm4che-conf-ldap-schema</li>
+</ul>
+</li>
+<li>dcm4che-core</li>
+<li>dcm4che-dcmr</li>
+<li>dcm4che-deident</li>
+<li>dcm4che-dict</li>
+<li>dcm4che-dict-priv</li>
+<li>dcm4che-emf</li>
+<li>dcm4che-hl7</li>
+<li>dcm4che-image</li>
+<li>dcm4che-imageio</li>
+<li>dcm4che-imageio-opencv</li>
+<li>dcm4che-imageio-rle</li>
+<li>dcm4che-js-dict</li>
+<li>dcm4che-json</li>
+<li>dcm4che-mime</li>
+<li>dcm4che-net</li>
+<li>dcm4che-net-audit</li>
+<li>dcm4che-net-hl7</li>
+<li>dcm4che-net-imageio</li>
+<li>dcm4che-soundex</li>
+<li>dcm4che-ws-rs</li>
+<li>dcm4che-xdsi</li>
+<li>dcm4che-jboss-modules</li>
+</ul>
+<h2 id="Utilities"><a href="#Utilities" class="headerlink" title="Utilities"></a>Utilities</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-agfa2dcm/README.md">agfa2dcm</a>: Extract DICOM files from Agfa BLOB file</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2dcm/README.md">dcm2dcm</a>: Transcode DICOM file according the specified Transfer Syntax</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2jpg/README.md">dcm2jpg</a>: Convert DICOM image to JPEG or other image formats</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2json/README.md">dcm2json</a>: Convert DICOM file in JSON presentation</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2pdf/README.md">dcm2pdf</a>: Extract encapsulated PDF, CDA or STL from DICOM file</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2str/README.md">dcm2str</a>: Apply Attributes Format Pattern to dicom file or command line parameters.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcm2xml/README.md">dcm2xml</a>: Convert DICOM file in XML presentation</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmdir/README.md">dcmdir</a>: Dump, create or update DICOMDIR file</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmdump/README.md">dcmdump</a>: Dump DICOM file in textual form</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmldap/README.md">dcmldap</a>: Insert/remove configuration entries for Network AEs into/from LDAP server</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmqrscp/README.md">dcmqrscp</a>: Simple DICOM archive</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmvalidate/README.md">dcmvalidate</a>: Validate DICOM object according a specified Information Object Definition</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-deidentify/README.md">deidentify</a>: De-identify one or several DICOM files</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-emf2sf/README.md">emf2sf</a>: Convert DICOM Enhanced Multi-frame image to legacy DICOM Single-frame images</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-findscu/README.md">findscu</a>: Invoke DICOM C-FIND Query Request</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-getscu/README.md">getscu</a>: Invoke DICOM C-GET Retrieve Request</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-hl72xml/README.md">hl72xml</a>: Convert HL7 v2.x message in XML presentation</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-hl7pdq/README.md">hl7pdq</a>: Query HL7 v2.x Patient Demographics Supplier</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-hl7pix/README.md">hl7pix</a>: Query HL7 v2.x PIX Manager</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-hl7rcv/README.md">hl7rcv</a>: HL7 v2.x Receiver</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-hl7snd/README.md">hl7snd</a>: Send HL7 v2.x message</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-ianscp/README.md">ianscp</a>: DICOM Instance Availability Notification receiver</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-ianscu/README.md">ianscu</a>: Send DICOM Instance Availability Notification</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-jpg2dcm/README.md">jpg2dcm</a>: Convert JPEG images or MPEG videos in DICOM files</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-json2props/README.md">json2props</a>: Convert Archive configuration schema JSON files to key/value properties files and vice versa</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-json2rst/README.md">json2rst</a>: Generate ReStructuredText files from Archive configuration schema JSON files</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-mkkos/README.md">mkkos</a>: Make DICOM Key Object Selection Document</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-ihe/dcm4che-tool-ihe-modality/README.md">modality</a>: Simulates DICOM Modality</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-movescu/README.md">movescu</a>: Invoke DICOM C-MOVE Retrieve request</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-mppsscp/README.md">mppsscp</a>: DICOM Modality Performed Procedure Step Receiver</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-mppsscu/README.md">mppsscu</a>: Send DICOM Modality Performed Procedure Step</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-pdf2dcm/README.md">pdf2dcm</a>: Convert PDF file into DICOM file</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-stgcmtscu/README.md">stgcmtscu</a>: Invoke DICOM Storage Commitment Request</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-storescp/README.md">storescp</a>: DICOM Composite Object Receiver</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-storescu/README.md">storescu</a>: Send DICOM Composite Objects</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-stowrs/README.md">stowrs</a>: Send DICOM Composite Objects or Bulkdata file over Web</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-stowrsd/README.md">stowrsd</a>: STOW-RS Server</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-swappxdata/README.md">swappxdata</a>: Swaps bytes of uncompressed pixel data in DICOM files</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-syslog/README.md">syslog</a>: Send Syslog messages via TCP/TLS or UDP to a Syslog Receiver</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-syslogd/README.md">syslogd</a>: Receives RFC 5424 Syslog messages via TCP/TLS or UDP</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-upsscu/README.md">upsscu</a>: Invokes services of Unified Procedure Step Service Class</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-wadors/README.md">wadors</a>: Wado RS Client Simulator</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-wadows/README.md">wadows</a>: Wado WS Client Simulator</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-xml2dcm/README.md">xml2dcm</a>: Create/Update DICOM file from/with XML presentation</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-xml2hl7/README.md">xml2hl7</a>: Create HL7 v2.x message from XML presentation</p>
+</li>
+</ul>
+<p>license: Mozilla Public License Version 1.1</p>
+<h1 id="imebra"><a href="#imebra" class="headerlink" title="imebra"></a>imebra</h1><p>Imebra now supplies the pre-compiled library for Android, which applies the Windowing in real time when you use the DicomView class (an Android View that displays the Dicom Image).</p>
+<p>There is no need to convert to jpeg: Follow the example in the documentation and then modify the windowing value in the voilut object.</p>
+<p>license:To use Imebra without being bound to the <strong>GPLv2</strong> license you have to <strong>buy a commercial license</strong>. <a target="_blank" rel="noopener" href="https://imebra.com/buy/">https://imebra.com/buy/</a></p>
+<h1 id="PixelMed"><a href="#PixelMed" class="headerlink" title="PixelMed"></a><a target="_blank" rel="noopener" href="http://www.pixelmed.com/">PixelMed</a></h1><p>stackoverflow上有帖子说可以用在安卓上，相关资料很少</p>
+<h1 id="DCMTK"><a href="#DCMTK" class="headerlink" title="DCMTK"></a>DCMTK</h1><p>论坛说可以用ndk编译，跑在安卓上 </p>
+<p> Compiling DCMTK for Android(中文版)<br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/chenhuakang/article/details/73608510">https://blog.csdn.net/chenhuakang/article/details/73608510</a></p>
+<p>license:A free evaluation licence is available for the OFFIS DICOM software packages DCMPPS, DCMPPSCU, PPSMGR, DCMPRINT SCU, DCMPRINT SCP, DCM2AVI, DCMJP2K and DCMSTCOM. The evaluation licence allows to download the software from the internet and to evaluate it for a period of four months. Any further use of the software requires a full licence agreement.</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ernest 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/dicom/" rel="tag"># dicom</a>
+              <a href="/tags/dcm/" rel="tag"># dcm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/one-word-linux-command/" rel="prev" title="一句话笔记：常用linux命令">
+      <i class="fa fa-chevron-left"></i> 一句话笔记：常用linux命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/curl%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%B9%B6%E8%AE%BE%E7%BD%AE%E6%AD%A3%E7%A1%AE%E5%90%8D%E7%A7%B0/" rel="next" title="curl批量下载并设置正确名称">
+      curl批量下载并设置正确名称 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dcm4che"><span class="nav-number">1.</span> <span class="nav-text">dcm4che</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Modules"><span class="nav-number">1.1.</span> <span class="nav-text">Modules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Utilities"><span class="nav-number">1.2.</span> <span class="nav-text">Utilities</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#imebra"><span class="nav-number">2.</span> <span class="nav-text">imebra</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PixelMed"><span class="nav-number">3.</span> <span class="nav-text">PixelMed</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DCMTK"><span class="nav-number">4.</span> <span class="nav-text">DCMTK</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
