@@ -168,398 +168,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-linux-command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ernest">
-      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ernest的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-              <span class="post-sticky-flag" title="置顶">
-                <i class="fa fa-thumbtack"></i>
-              </span>
-            <a href="/one-word-linux-command/" class="post-title-link" itemprop="url">一句话笔记：常用linux命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-01 10:38:51" itemprop="dateModified" datetime="2022-03-01T10:38:51+08:00">2022-03-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="文件系统远程挂载"><a href="#文件系统远程挂载" class="headerlink" title="文件系统远程挂载"></a>文件系统远程挂载</h1><p>SMB</p>
-<p>//IP地址是windows地址，后面跟上windows上的共享目录，后面的路径是linux上的挂载路径<br>sudo mount -t cifs  //172.20.4.5/临时文件  /data/sync -o username=cad,password=tdc1718,sec=ntlm,vers=1.0</p>
-<p>NFS</p>
-<p>mount -t nfs -o nolock 172.20.4.106:/home /data/sync</p>
-<p>开机挂载</p>
-<h1 id="开机自动挂载文件"><a href="#开机自动挂载文件" class="headerlink" title="开机自动挂载文件"></a>开机自动挂载文件</h1><p>修改 /etc/fstab 文件， 挂载命令如：</p>
-<p>SMB</p>
-<p>//192.168.22.111/shared /home/www/ cifs username=xxx,password=xxx,rw,dir_mode=0777,file_mode=0777 0 0</p>
-<p>NFS</p>
-<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#x73;&#x75;&#113;&#x69;&#115;&#104;&#x75;&#x6f;&#x40;&#52;&#x2e;&#x31;&#48;&#x36;">&#x73;&#x75;&#113;&#x69;&#115;&#104;&#x75;&#x6f;&#x40;&#52;&#x2e;&#x31;&#48;&#x36;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
-<h1 id="curl-apt-设置代理"><a href="#curl-apt-设置代理" class="headerlink" title="curl,apt 设置代理"></a>curl,apt 设置代理</h1><p>curl -x socks5h://192.168.3.125:9081 -LO <a target="_blank" rel="noopener" href="http://google.com/">http://google.com</a></p>
-<p>sudo apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“ update<br>apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“  install xxx</p>
-<h1 id="批量替换文件内容"><a href="#批量替换文件内容" class="headerlink" title="批量替换文件内容"></a>批量替换文件内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/http:\/\/tracker\.m.com/https:\/\/tracker\.m\.com/&#x27;</span> *.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="软连接"><a href="#软连接" class="headerlink" title="软连接"></a>软连接</h1><p>sudo ln -s “/data_20t/media/霍元甲港版导演剪辑版” “/data_20t/media/Fearless Hong Kong Version Director’s Cut 2006 Blu-Ray 1080p AVC LPCM 7.1”</p>
-<h1 id="配置-ipv6"><a href="#配置-ipv6" class="headerlink" title="配置 ipv6"></a>配置 ipv6</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/network/interfaces</span><br><span class="line"></span><br><span class="line"># The loopback network interface</span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">auto enp3s0</span><br><span class="line">iface enp3s0 inet dhcp</span><br><span class="line">iface enp3s0 inet6 dhcp</span><br><span class="line">autoconf 1</span><br><span class="line">accept_ra 2</span><br><span class="line">auto enp4s0</span><br><span class="line">iface enp4s0 inet dhcp</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="重启网卡"><a href="#重启网卡" class="headerlink" title="重启网卡"></a>重启网卡</h1><p><code>sudo /etc/init.d/networking restart</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-mac-command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ernest">
-      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ernest的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-              <span class="post-sticky-flag" title="置顶">
-                <i class="fa fa-thumbtack"></i>
-              </span>
-            <a href="/one-word-mac-command/" class="post-title-link" itemprop="url">一句话笔记：常用mac命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-13 20:17:02" itemprop="dateModified" datetime="2021-08-13T20:17:02+08:00">2021-08-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="双网卡路由配置"><a href="#双网卡路由配置" class="headerlink" title="双网卡路由配置"></a>双网卡路由配置</h1><ul>
-<li>查看路由表  netstat -nr</li>
-<li>删除路由 sudo route -v delete -net 172.20/24</li>
-<li>添加路由 sudo route -n add -net 172.20.3.0 -netmask 255.255.255.0 192.168.123.1</li>
-</ul>
-<h1 id="文件系统远程挂载"><a href="#文件系统远程挂载" class="headerlink" title="文件系统远程挂载"></a>文件系统远程挂载</h1><p>SMB</p>
-<p>//IP地址是windows地址，后面跟上windows上的共享目录，后面的路径是linux上的挂载路径<br>sudo mount -t cifs  //172.20.4.5/临时文件  /data/sync -o username=cad,password=tdc1718,sec=ntlm,vers=1.0</p>
-<p>NFS</p>
-<p>mount -t nfs -o nolock 172.20.4.106:/home /data/sync</p>
-<p>开机挂载</p>
-<h1 id="开机自动挂载文件"><a href="#开机自动挂载文件" class="headerlink" title="开机自动挂载文件"></a>开机自动挂载文件</h1><p>修改 /etc/fstab 文件， 挂载命令如：</p>
-<p>SMB</p>
-<p>//192.168.22.111/shared /home/www/ cifs username=xxx,password=xxx,rw,dir_mode=0777,file_mode=0777 0 0</p>
-<p>NFS</p>
-<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#x73;&#x75;&#x71;&#105;&#115;&#x68;&#x75;&#111;&#64;&#52;&#46;&#x31;&#x30;&#x36;">&#x73;&#x75;&#x71;&#105;&#115;&#x68;&#x75;&#111;&#64;&#52;&#46;&#x31;&#x30;&#x36;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
-<h1 id="curl-apt-设置代理"><a href="#curl-apt-设置代理" class="headerlink" title="curl,apt 设置代理"></a>curl,apt 设置代理</h1><p>curl -x socks5h://192.168.3.125:9081 -LO <a target="_blank" rel="noopener" href="http://google.com/">http://google.com</a></p>
-<p>sudo apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“ update<br>apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“  install xxx</p>
-<h1 id="批量替换文件内容"><a href="#批量替换文件内容" class="headerlink" title="批量替换文件内容"></a>批量替换文件内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/http:\/\/tracker\.m.com/https:\/\/tracker\.m\.com/&#x27;</span> *.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-pt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ernest">
-      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ernest的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-              <span class="post-sticky-flag" title="置顶">
-                <i class="fa fa-thumbtack"></i>
-              </span>
-            <a href="/one-word-pt/" class="post-title-link" itemprop="url">一句话PT笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-10 15:48:50" itemprop="dateModified" datetime="2021-08-10T15:48:50+08:00">2021-08-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="盒子（seedbox）限制汇总，H-amp-R汇总"><a href="#盒子（seedbox）限制汇总，H-amp-R汇总" class="headerlink" title="盒子（seedbox）限制汇总，H&amp;R汇总"></a>盒子（seedbox）限制汇总，H&amp;R汇总</h1><p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/sEi6Sg5iu">https://www.kdocs.cn/l/sEi6Sg5iu</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/plans/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ernest">
-      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ernest的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-              <span class="post-sticky-flag" title="置顶">
-                <i class="fa fa-thumbtack"></i>
-              </span>
-            <a href="/plans/" class="post-title-link" itemprop="url">我的计划</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-12 17:21:02" itemprop="dateCreated datePublished" datetime="2019-03-12T17:21:02+08:00">2019-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-03 10:47:21" itemprop="dateModified" datetime="2021-02-03T10:47:21+08:00">2021-02-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="花有重开日，人无再少年"><a href="#花有重开日，人无再少年" class="headerlink" title="花有重开日，人无再少年"></a>花有重开日，人无再少年</h1><blockquote>
-<p>不知不觉已经2019了。成为社会人也已经有三年有余。成长了很多，但是觉得还不够。在时间管理，目标计划方面，还有很大的改进空间。经常在心里立下FLAG，但是没多久FLAG就倒了。因此本篇用于记录我的目标和计划。那些已经实现的、已经失败的、正在计划的……</p>
-</blockquote>
-<h1 id="已经实现的-SUCCESS✅"><a href="#已经实现的-SUCCESS✅" class="headerlink" title="已经实现的 SUCCESS✅"></a>已经实现的 SUCCESS✅</h1><table>
-<thead>
-<tr>
-<th>OBJECT</th>
-<th>CREATE TIME</th>
-<th>START TIME</th>
-<th>END TIME</th>
-<th>CURRENT STATUS</th>
-<th>LINK</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="已经失败的-FAILURE❌"><a href="#已经失败的-FAILURE❌" class="headerlink" title="已经失败的 FAILURE❌"></a>已经失败的 FAILURE❌</h1><table>
-<thead>
-<tr>
-<th>OBJECT</th>
-<th>CREATE TIME</th>
-<th>START TIME</th>
-<th>END TIME</th>
-<th>CURRENT STATUS</th>
-<th>LINK</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="正在计划的-PLANNING🕛"><a href="#正在计划的-PLANNING🕛" class="headerlink" title="正在计划的 PLANNING🕛"></a>正在计划的 PLANNING🕛</h1><table>
-<thead>
-<tr>
-<th>OBJECT</th>
-<th>CREATE TIME</th>
-<th>START TIME</th>
-<th>END TIME</th>
-<th>CURRENT STATUS</th>
-<th>LINK</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>熟练使用Adobe XD</td>
-<td>2019.03.10</td>
-<td>2019.3.13</td>
-<td></td>
-<td>开始阅读<a target="_blank" rel="noopener" href="https://ernest-su.gitbook.io/learning-vuejs-2-zh-cn/">vue-js 2.0完全入门记录</a></td>
-<td><a href="/plan-vue">ℹ</a></td>
-</tr>
-<tr>
-<td>熟练使用 vue</td>
-<td>2019.03.12</td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="/plan-vue">ℹ</a></td>
-</tr>
-<tr>
-<td>熟练使用docker</td>
-<td>2019.03.10</td>
-<td>2019.03.14</td>
-<td></td>
-<td>学习搭建<strong>docker-youphptube</strong></td>
-<td><a href="/plan-docker">ℹ</a></td>
-</tr>
-<tr>
-<td>熟练使用flutter</td>
-<td>2019.03.12</td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href="/plan-flutter">ℹ</a></td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/soft_collections/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -650,7 +258,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/%E7%BA%A2%E9%98%9F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%20%E6%94%BB%E9%98%B2%20%20%E5%AD%A6%E4%B9%A0%20%E5%B7%A5%E5%85%B7%20%E5%88%86%E6%9E%90%20%E7%A0%94%E7%A9%B6%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/%E7%BA%A2%E9%98%9F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%20%E6%94%BB%E9%98%B2%20%20%E5%AD%A6%E4%B9%A0%20%E5%B7%A5%E5%85%B7%20%E5%88%86%E6%9E%90%20%E7%A0%94%E7%A9%B6%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">红队渗透测试 攻防  学习 工具 分析 研究资料汇总</a>
         </h2>
 
         <div class="post-meta">
@@ -660,15 +268,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-04-25 09:24:58" itemprop="dateCreated datePublished" datetime="2022-04-25T09:24:58+08:00">2022-04-25</time>
+              <time title="创建时间：2022-04-25 17:30:55" itemprop="dateCreated datePublished" datetime="2022-04-25T17:30:55+08:00">2022-04-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-21 16:19:47" itemprop="dateModified" datetime="2022-04-21T16:19:47+08:00">2022-04-21</time>
+                <time title="修改时间：2022-04-27 10:26:18" itemprop="dateModified" datetime="2022-04-27T10:26:18+08:00">2022-04-27</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">安全</span></a>
+                </span>
+            </span>
 
           
 
@@ -767,6 +384,146 @@
 <h1 id="在线办公套件"><a href="#在线办公套件" class="headerlink" title="在线办公套件"></a>在线办公套件</h1><p><a target="_blank" rel="noopener" href="https://sadd.io/">https://sadd.io/</a> 在线操作系统<br><a target="_blank" rel="noopener" href="https://github.com/zyx0814/dzzoffice">https://github.com/zyx0814/dzzoffice</a> 在线办公套件,DEMO 网址 demo.dzzoffice.com<br><a target="_blank" rel="noopener" href="https://github.com/RobbieHan/gistandard">https://github.com/RobbieHan/gistandard</a> py，基于 Django，OA 工单办公管理系统<br><a target="_blank" rel="noopener" href="https://github.com/pavanw3b/sh00t">https://github.com/pavanw3b/sh00t</a> PY3,DJANGO，安全测试工单管理<br><a target="_blank" rel="noopener" href="https://github.com/chaitin/strapdown-zeta">https://github.com/chaitin/strapdown-zeta</a> 基于 strapdown.js，长亭二次开发开源的 Wiki 系统，支持 markdown<br><a target="_blank" rel="noopener" href="https://etherpad.net/">https://etherpad.net/</a> 在线可编辑记事本<br><a target="_blank" rel="noopener" href="https://www.upload.ee/">https://www.upload.ee/</a> 文件共享平台<br><a target="_blank" rel="noopener" href="https://github.com/micahflee/onionshare">https://github.com/micahflee/onionshare</a> 利用 onion 洋葱服务器匿名文件共享<br><a target="_blank" rel="noopener" href="https://github.com/filebrowser/filebrowser">https://github.com/filebrowser/filebrowser</a> GO,基于 Caddy 框架的网盘<br><a target="_blank" rel="noopener" href="https://github.com/nextcloud/server">https://github.com/nextcloud/server</a> php，私有云网盘，owncloud 分支<br><a target="_blank" rel="noopener" href="https://github.com/owncloud/core">https://github.com/owncloud/core</a> php，私有云网盘，界面不美观<br><a target="_blank" rel="noopener" href="https://github.com/haiwen/seafile">https://github.com/haiwen/seafile</a> C,私有云网盘，速度快，功能少<br><a target="_blank" rel="noopener" href="https://github.com/ymfe/yapi">https://github.com/ymfe/yapi</a> API 管理工具<br><a target="_blank" rel="noopener" href="https://thyrsi.com/">https://thyrsi.com/</a> 图片上传分享工具</p>
 <h1 id="隐私匿名加密"><a href="#隐私匿名加密" class="headerlink" title="隐私匿名加密"></a>隐私匿名加密</h1><p><a target="_blank" rel="noopener" href="https://www.lshack.cn/118/">https://www.lshack.cn/118/</a> 在线接收验证码/邮箱/粘贴板/文件传输大集合。<br><a target="_blank" rel="noopener" href="http://bccto.me/">http://bccto.me</a> 一次性邮箱<br><a target="_blank" rel="noopener" href="https://www.guerrillamail.com/">https://www.guerrillamail.com</a> 一次性邮箱<br><a target="_blank" rel="noopener" href="http://24mail.chacuo.net/">http://24mail.chacuo.net/</a> 一次性邮箱<br><a target="_blank" rel="noopener" href="http://www.yopmail.com/">http://www.yopmail.com</a> 一次性邮箱<br><a target="_blank" rel="noopener" href="https://yandex.com/">https://yandex.com/</a> 非手机邮箱<br><a target="_blank" rel="noopener" href="https://mail.ru/">https://mail.ru/</a> 非手机邮箱<br><a target="_blank" rel="noopener" href="https://mail.protonmail.com/login">https://mail.protonmail.com/login</a> 非手机邮箱<br><a target="_blank" rel="noopener" href="https://github.com/walkor/workerman-chat">https://github.com/walkor/workerman-chat</a> php，在线聊天室，可扩展<br><a target="_blank" rel="noopener" href="https://github.com/hack-chat">https://github.com/hack-chat</a> <a target="_blank" rel="noopener" href="https://hack.chat/?your-channel">https://hack.chat/?your-channel</a> js,在线聊天，问号后面跟你的房间名<br><a target="_blank" rel="noopener" href="https://github.com/akaxincom/openzaly">https://github.com/akaxincom/openzaly</a> java,聊天室，Akaxin 为客户端闭源<br><a target="_blank" rel="noopener" href="https://github.com/RocketChat/Rocket.Chat">https://github.com/RocketChat/Rocket.Chat</a> js,在线团队聊天服务器，<a target="_blank" rel="noopener" href="https://rocket.chat/install">https://rocket.chat/install</a><br><a target="_blank" rel="noopener" href="https://telegram.org/">https://telegram.org</a><br><a target="_blank" rel="noopener" href="https://www.whatsapp.com/">https://www.whatsapp.com</a><br><a target="_blank" rel="noopener" href="https://wire.com/en">https://wire.com/en</a><br><a target="_blank" rel="noopener" href="https://signal.org/">https://signal.org</a><br><a target="_blank" rel="noopener" href="http://www.batmessenger.com/">http://www.batmessenger.com</a><br><a target="_blank" rel="noopener" href="http://sid.co/">http://sid.co</a></p>
 <h1 id="在线资源"><a href="#在线资源" class="headerlink" title="在线资源"></a>在线资源</h1><p><a target="_blank" rel="noopener" href="https://github.com/DoubleLabyrinth/navicat-keygen">https://github.com/DoubleLabyrinth/navicat-keygen</a> navicat 注册机<br><a target="_blank" rel="noopener" href="https://github.com/DoubleLabyrinth/MobaXterm-keygen">https://github.com/DoubleLabyrinth/MobaXterm-keygen</a> MobaXterm 注册机<br><a target="_blank" rel="noopener" href="http://www.zdfans.com/">http://www.zdfans.com</a> zd423 – 软件分享平台领跑者<br><a target="_blank" rel="noopener" href="https://www.flaticon.com/">https://www.flaticon.com</a> 免费图标网站<br><a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/">https://msdn.itellyou.cn</a> 原生镜像<br><a target="_blank" rel="noopener" href="https://www.freenom.com/">https://www.freenom.com</a> 注册免费域名，dns 解析<br><a target="_blank" rel="noopener" href="https://codebeautify.org/">https://codebeautify.org</a> 在线代码美化<br><a target="_blank" rel="noopener" href="http://patorjk.com/">http://patorjk.com</a> Text to ASCII Art Generator<br><a target="_blank" rel="noopener" href="https://www.seopojie.com/">https://www.seopojie.com</a> SPAM,SEO<br>————————————————<br>版权声明：本文为CSDN博主「CKCsec」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46717339/article/details/122366277">https://blog.csdn.net/qq_46717339/article/details/122366277</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/" class="post-title-link" itemprop="url">使用Github Actions  完成编译、发布release apk</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-25 17:30:55" itemprop="dateCreated datePublished" datetime="2022-04-25T17:30:55+08:00">2022-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-27 10:28:06" itemprop="dateModified" datetime="2022-04-27T10:28:06+08:00">2022-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%84%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">构建</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用<em>Github Actions，</em>我们可以编译，运行测试，还可以<strong>签署发布工件</strong> 。 <strong>但是</strong>，如果我们将密钥库上载到公共存储库，这很<em><strong>危险</strong>。作为开发人员，我们必须采取一些预防措施，例如</em><em>不要提交API密钥或密钥库</em>*<em>（使用</em>Github Actions*作为CI并不是这样做的借口。）</p>
+<p>那我们怎样才能在仓库中使用github actions 完成编译签署发布工作，同时又保证密钥和密钥口令的安全性呢？</p>
+<p>跟着以下步骤，你应该就能明白了。</p>
+<h1 id="创建签名环境"><a href="#创建签名环境" class="headerlink" title="创建签名环境"></a>创建签名环境</h1><p>创建签名环境，主要实现两个目标，一是保护签名文件不被泄露，公共存储库是所有人可读的。二是保证签名文件的密钥密码等信息不被泄露，包括在执行编译、发布apk整个过程的安全。</p>
+<h2 id="创建存储签名文件的私有仓库"><a href="#创建存储签名文件的私有仓库" class="headerlink" title="创建存储签名文件的私有仓库"></a>创建存储签名文件的私有仓库</h2><p>首先，我们在github上创建一个<strong>私有</strong>仓库，为简单起见，我们将其称为<code> keystore</code>。得到的仓库地址是<code>git@github.com:Ernest-su/keystore.git</code></p>
+<p>然后，把仓库clone到本地。<code>git clone git@github.com:Ernest-su/keystore.git</code></p>
+<p>将签名文件放到keystore内.例如，我的签名文件名称是<code>keyfile</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .\keyfile</span><br><span class="line">git commit -m &quot;添加签名文件&quot;</span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>: 在github上新建仓库的时候，github已经把默认分支从以前的<code>master</code>改为了<code>main</code> ,所以上面的命令是<code>git push origin main</code>，而不是之前的<code>git push origin master</code></p>
+<h2 id="添加签名文件仓库为git的子模块"><a href="#添加签名文件仓库为git的子模块" class="headerlink" title="添加签名文件仓库为git的子模块"></a>添加签名文件仓库为git的子模块</h2><p>切换到项目目录，使用以下命令将包含密钥文件的私有存储库添加为子模块，为简单起见，我们将其称为<code> keystore</code>。</p>
+<p><code>git submodule add git@github.com:Ernest-su/keystore.git keystore</code></p>
+<p>这样，我们便拥有了可以在本地进行签名的密钥库，并且因为该仓库是私有仓库，其他人<strong>不会</strong>获取到签名文件。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130338684.png" alt="image-20220426130338684"></p>
+<p>可以看到，项目已经多了一个<code>keystore</code>文件夹，里面有我们的签名文件。因为是作为git的子模块<code>submodule</code> 来添加的，所以提交的时候，项目只会引用子模块的提交信息，不会包含此文件夹。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130224297.png" alt="image-20220426130224297"></p>
+<h2 id="加密的环境变量-Secrets"><a href="#加密的环境变量-Secrets" class="headerlink" title="加密的环境变量 Secrets"></a>加密的环境变量 Secrets</h2><p>为了拥有更<strong>安全的环境</strong>来使用github actions签署apk,我们在项目的设置中做以下配置。</p>
+<p>在项目 <code>Settings -&gt; Secrets-&gt; Actions</code>  中配置加密的环境变量，这里配置的环境变量很安全，有<a target="_blank" rel="noopener" href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">特殊处理</a>，不会在日志中显示。同时也不会传递由 <code>Fork</code> 发起的 <code>Pull Request</code>。</p>
+<p>以下配置，KEY*开头的是签名文件的密码和签名别名，根据上面添加为git子模块的签名文件填入正确的信息。</p>
+<p><img src="..%5Cimages%5Cimage-20220425174715402.png"></p>
+<p><code>TOKEN</code>配置的是github 的 <code>PAT</code>,也就是Personal access tokens，这里就不展开介绍了，可以查阅<a target="_blank" rel="noopener" href="https://docs.github.com/cn/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">官方的说明</a> 这里配置的<code>TOKEN</code>用于Github Actions执行时，拉取私有仓库子模块的签名文件。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130619781.png" alt="image-20220426130619781"></p>
+<h2 id="修改app签名配置"><a href="#修改app签名配置" class="headerlink" title="修改app签名配置"></a>修改app签名配置</h2><p>在<strong>app模块</strong>的<code>build.gradle</code>中调整签名配置。<code>System.getenv</code>读取的是系统环境变量，在GitHub Actions执行时候，读取的是上面<strong>加密的环境变量 Secrets</strong> 中配置的信息。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line">    release &#123;</span><br><span class="line"></span><br><span class="line">        storeFile file(KEYSTORE)</span><br><span class="line"></span><br><span class="line">        storePassword System.getenv(<span class="string">&quot;KEYSTORE_PASSWORD&quot;</span>)</span><br><span class="line"></span><br><span class="line">        keyAlias System.getenv(<span class="string">&quot;KEY_ALIAS&quot;</span>)</span><br><span class="line"></span><br><span class="line">        keyPassword System.getenv(<span class="string">&quot;KEY_PASSWORD&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<strong>项目根目录</strong>的<code>gradle.properties</code>配置以下信息。我们把<code>KEYSTORE</code>直接在这里定义了，而不是通过获取系统环境变量的方式。当然，通过上面定义加密的环境变量Secrets,再用读取系统环境变量的方式，也是ok的。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">KEYSTORE</span>=<span class="string">../keystore/keyfile</span></span><br><span class="line"><span class="comment">#以下配置到环境变量里了,在github actions的脚本中会自动读取</span></span><br><span class="line"><span class="comment"># KEY_ALIAS=System.getenv(&quot;KEY_ALIAS&quot;)</span></span><br><span class="line"><span class="comment"># KEY_PASSWORD=[your key password]</span></span><br><span class="line"><span class="comment"># KEYSTORE_PASSWORD=[your store password]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="配置Github-Actions"><a href="#配置Github-Actions" class="headerlink" title="配置Github Actions"></a>配置Github Actions</h1><p>在项目新建<code>.github\workflows</code>目录，在<code>workflows</code>目录下新建<code>android.yml</code>文件,内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Android</span> <span class="string">CI</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">       <span class="attr">submodules:</span> <span class="string">recursive</span></span><br><span class="line">       <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">set</span> <span class="string">up</span> <span class="string">JDK</span> <span class="number">11</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-java@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">java-version:</span> <span class="string">&#x27;11&#x27;</span></span><br><span class="line">        <span class="attr">distribution:</span> <span class="string">&#x27;temurin&#x27;</span></span><br><span class="line">        <span class="attr">cache:</span> <span class="string">gradle</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Grant</span> <span class="string">execute</span> <span class="string">permission</span> <span class="string">for</span> <span class="string">gradlew</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">gradlew</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">with</span> <span class="string">Gradle</span></span><br><span class="line">      <span class="attr">env:</span> <span class="comment">#  as an environment variable</span></span><br><span class="line">        <span class="attr">KEYSTORE_PASSWORD:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEYSTORE_PASSWORD</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">KEY_ALIAS:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEY_ALIAS</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">KEY_PASSWORD:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEY_PASSWORD</span> <span class="string">&#125;&#125;</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">./gradlew</span> <span class="string">assemble</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">binaries</span> <span class="string">to</span> <span class="string">release</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">svenstaro/upload-release-action@v2</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">repo_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">file:</span>  <span class="string">app/build/outputs/apk/release/*.apk</span></span><br><span class="line">        <span class="attr">tag:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">release_name:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">overwrite:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">file_glob:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">body:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Github-Actions-触发条件"><a href="#Github-Actions-触发条件" class="headerlink" title="Github Actions 触发条件"></a>Github Actions 触发条件</h2><p>简单说明下配置的含义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    tags:</span><br><span class="line">      - &#x27;*&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>意思是在推送tag到远程仓库时候，触发GitHub Actions。<code>&#39;*&#39;</code> 表示推送所有的tag都会触发，可以改为<code>&#39;v*&#39;</code>,表示推送了<code>v</code>开头的tag才触发。如果希望是在推送到特定分支时候触发，如<code>release</code>，则可以这样配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches: [ release ]</span><br></pre></td></tr></table></figure>
+
+<p>或需要推送到<code>master</code>分支时候触发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches: [ master ]</span><br></pre></td></tr></table></figure>
+
+<p>但是需要注意,如果<code>master</code>分支是默认分支，且是私有仓库，会浪费掉GitHub Actions的运行时间额度。公共仓库和自托管运行器免费使用 GitHub Actions。 对于私有仓库，每个 GitHub 帐户可获得一定数量的免费记录和存储。<a target="_blank" rel="noopener" href="https://docs.github.com/cn/billing/managing-billing-for-github-actions/managing-your-spending-limit-for-github-actions">关于额度的说明</a></p>
+<h2 id="Github-Actions-的子模块配置"><a href="#Github-Actions-的子模块配置" class="headerlink" title="Github Actions 的子模块配置"></a>Github Actions 的子模块配置</h2><pre><code>- uses: actions/checkout@v3
+  with:
+   submodules: recursive
+   token: $&#123;&#123; secrets.TOKEN &#125;&#125;
+</code></pre>
+<p>只有加了<code>  submodules: recursive</code>以及<code>   token: $&#123;&#123; secrets.TOKEN &#125;&#125;</code>才会在构建时候拉取到私有仓库的子模块。</p>
+<h2 id="读取Actions-加密系统环境变量"><a href="#读取Actions-加密系统环境变量" class="headerlink" title="读取Actions 加密系统环境变量"></a>读取Actions 加密系统环境变量</h2><pre><code>- name: Build with Gradle
+  env: #  as an environment variable
+    KEYSTORE_PASSWORD: $&#123;&#123; secrets.KEYSTORE_PASSWORD &#125;&#125;
+    KEY_ALIAS: $&#123;&#123; secrets.KEY_ALIAS &#125;&#125;
+    KEY_PASSWORD: $&#123;&#123; secrets.KEY_PASSWORD &#125;&#125;
+</code></pre>
+<p>此步骤用于配置解密后的环境变量到系统环境变量中,供<code>gradle</code>脚本使用</p>
+<h2 id="上传apk文件到github-release"><a href="#上传apk文件到github-release" class="headerlink" title="上传apk文件到github release"></a>上传apk文件到github release</h2><pre><code>- name: Upload binaries to release
+  uses: svenstaro/upload-release-action@v2
+  with:
+    repo_token: $&#123;&#123; secrets.GITHUB_TOKEN &#125;&#125;
+    file:  app/build/outputs/apk/release/*.apk
+    tag: $&#123;&#123; github.ref &#125;&#125;
+    release_name: $&#123;&#123; github.ref &#125;&#125;
+    overwrite: true
+    file_glob: true
+    body: &quot;&quot;
+</code></pre>
 
       
     </div>
@@ -1056,6 +813,235 @@
 <h1 id="DCMTK"><a href="#DCMTK" class="headerlink" title="DCMTK"></a>DCMTK</h1><p>论坛说可以用ndk编译，跑在安卓上 </p>
 <p> Compiling DCMTK for Android(中文版)<br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/chenhuakang/article/details/73608510">https://blog.csdn.net/chenhuakang/article/details/73608510</a></p>
 <p>license:A free evaluation licence is available for the OFFIS DICOM software packages DCMPPS, DCMPPSCU, PPSMGR, DCMPRINT SCU, DCMPRINT SCP, DCM2AVI, DCMJP2K and DCMSTCOM. The evaluation licence allows to download the software from the internet and to evaluate it for a period of four months. Any further use of the software requires a full licence agreement.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-mac-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/one-word-mac-command/" class="post-title-link" itemprop="url">一句话笔记：常用mac命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-27 10:29:18" itemprop="dateModified" datetime="2022-04-27T10:29:18+08:00">2022-04-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="双网卡路由配置"><a href="#双网卡路由配置" class="headerlink" title="双网卡路由配置"></a>双网卡路由配置</h1><ul>
+<li>查看路由表  netstat -nr</li>
+<li>删除路由 sudo route -v delete -net 172.20/24</li>
+<li>添加路由 sudo route -n add -net 172.20.3.0 -netmask 255.255.255.0 192.168.123.1</li>
+</ul>
+<h1 id="文件系统远程挂载"><a href="#文件系统远程挂载" class="headerlink" title="文件系统远程挂载"></a>文件系统远程挂载</h1><p>SMB</p>
+<p>//IP地址是windows地址，后面跟上windows上的共享目录，后面的路径是linux上的挂载路径<br>sudo mount -t cifs  //172.20.4.5/临时文件  /data/sync -o username=cad,password=tdc1718,sec=ntlm,vers=1.0</p>
+<p>NFS</p>
+<p>mount -t nfs -o nolock 172.20.4.106:/home /data/sync</p>
+<p>开机挂载</p>
+<h1 id="开机自动挂载文件"><a href="#开机自动挂载文件" class="headerlink" title="开机自动挂载文件"></a>开机自动挂载文件</h1><p>修改 /etc/fstab 文件， 挂载命令如：</p>
+<p>SMB</p>
+<p>//192.168.22.111/shared /home/www/ cifs username=xxx,password=xxx,rw,dir_mode=0777,file_mode=0777 0 0</p>
+<p>NFS</p>
+<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#115;&#x75;&#113;&#105;&#x73;&#x68;&#117;&#x6f;&#64;&#x34;&#x2e;&#49;&#48;&#54;">&#115;&#x75;&#113;&#105;&#x73;&#x68;&#117;&#x6f;&#64;&#x34;&#x2e;&#49;&#48;&#54;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
+<h1 id="curl-apt-设置代理"><a href="#curl-apt-设置代理" class="headerlink" title="curl,apt 设置代理"></a>curl,apt 设置代理</h1><p>curl -x socks5h://192.168.3.125:9081 -LO <a target="_blank" rel="noopener" href="http://google.com/">http://google.com</a></p>
+<p>sudo apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“ update<br>apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“  install xxx</p>
+<h1 id="批量替换文件内容"><a href="#批量替换文件内容" class="headerlink" title="批量替换文件内容"></a>批量替换文件内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/http:\/\/tracker\.m.com/https:\/\/tracker\.m\.com/&#x27;</span> *.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-linux-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/one-word-linux-command/" class="post-title-link" itemprop="url">一句话笔记：常用linux命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-27 10:29:36" itemprop="dateModified" datetime="2022-04-27T10:29:36+08:00">2022-04-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="文件系统远程挂载"><a href="#文件系统远程挂载" class="headerlink" title="文件系统远程挂载"></a>文件系统远程挂载</h1><p>SMB</p>
+<p>//IP地址是windows地址，后面跟上windows上的共享目录，后面的路径是linux上的挂载路径<br>sudo mount -t cifs  //172.20.4.5/临时文件  /data/sync -o username=cad,password=tdc1718,sec=ntlm,vers=1.0</p>
+<p>NFS</p>
+<p>mount -t nfs -o nolock 172.20.4.106:/home /data/sync</p>
+<p>开机挂载</p>
+<h1 id="开机自动挂载文件"><a href="#开机自动挂载文件" class="headerlink" title="开机自动挂载文件"></a>开机自动挂载文件</h1><p>修改 /etc/fstab 文件， 挂载命令如：</p>
+<p>SMB</p>
+<p>//192.168.22.111/shared /home/www/ cifs username=xxx,password=xxx,rw,dir_mode=0777,file_mode=0777 0 0</p>
+<p>NFS</p>
+<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#115;&#x75;&#x71;&#105;&#x73;&#x68;&#117;&#x6f;&#x40;&#x34;&#x2e;&#49;&#x30;&#x36;">&#115;&#x75;&#x71;&#105;&#x73;&#x68;&#117;&#x6f;&#x40;&#x34;&#x2e;&#49;&#x30;&#x36;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
+<h1 id="curl-apt-设置代理"><a href="#curl-apt-设置代理" class="headerlink" title="curl,apt 设置代理"></a>curl,apt 设置代理</h1><p>curl -x socks5h://192.168.3.125:9081 -LO <a target="_blank" rel="noopener" href="http://google.com/">http://google.com</a></p>
+<p>sudo apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“ update<br>apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“  install xxx</p>
+<h1 id="批量替换文件内容"><a href="#批量替换文件内容" class="headerlink" title="批量替换文件内容"></a>批量替换文件内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/http:\/\/tracker\.m.com/https:\/\/tracker\.m\.com/&#x27;</span> *.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="软连接"><a href="#软连接" class="headerlink" title="软连接"></a>软连接</h1><p>sudo ln -s “/data_20t/media/霍元甲港版导演剪辑版” “/data_20t/media/Fearless Hong Kong Version Director’s Cut 2006 Blu-Ray 1080p AVC LPCM 7.1”</p>
+<h1 id="配置-ipv6"><a href="#配置-ipv6" class="headerlink" title="配置 ipv6"></a>配置 ipv6</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/network/interfaces</span><br><span class="line"></span><br><span class="line"># The loopback network interface</span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">auto enp3s0</span><br><span class="line">iface enp3s0 inet dhcp</span><br><span class="line">iface enp3s0 inet6 dhcp</span><br><span class="line">autoconf 1</span><br><span class="line">accept_ra 2</span><br><span class="line">auto enp4s0</span><br><span class="line">iface enp4s0 inet dhcp</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="重启网卡"><a href="#重启网卡" class="headerlink" title="重启网卡"></a>重启网卡</h1><p><code>sudo /etc/init.d/networking restart</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/one-word-pt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/one-word-pt/" class="post-title-link" itemprop="url">一句话PT笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-15 17:21:02" itemprop="dateCreated datePublished" datetime="2021-07-15T17:21:02+08:00">2021-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-27 10:29:06" itemprop="dateModified" datetime="2022-04-27T10:29:06+08:00">2022-04-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="盒子（seedbox）限制汇总，H-amp-R汇总"><a href="#盒子（seedbox）限制汇总，H-amp-R汇总" class="headerlink" title="盒子（seedbox）限制汇总，H&amp;R汇总"></a>盒子（seedbox）限制汇总，H&amp;R汇总</h1><p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/sEi6Sg5iu">https://www.kdocs.cn/l/sEi6Sg5iu</a></p>
 
       
     </div>
@@ -3139,20 +3125,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

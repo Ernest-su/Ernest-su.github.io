@@ -28,9 +28,9 @@
 <meta property="og:description" content="文件系统远程挂载SMB &#x2F;&#x2F;IP地址是windows地址，后面跟上windows上的共享目录，后面的路径是linux上的挂载路径sudo mount -t cifs  &#x2F;&#x2F;172.20.4.5&#x2F;临时文件  &#x2F;data&#x2F;sync -o username&#x3D;cad,password&#x3D;tdc1718,sec&#x3D;ntlm,vers&#x3D;1.0 NFS mount -t nfs -o nolock 172.20.4">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-15T09:21:02.000Z">
-<meta property="article:modified_time" content="2022-03-01T02:38:51.173Z">
+<meta property="article:modified_time" content="2022-04-27T02:29:36.444Z">
 <meta property="article:author" content="Ernest">
-<meta property="article:tag" content="linxu">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://ernest-su.github.io/one-word-linux-command/">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-01 10:38:51" itemprop="dateModified" datetime="2022-03-01T10:38:51+08:00">2022-03-01</time>
+                <time title="修改时间：2022-04-27 10:29:36" itemprop="dateModified" datetime="2022-04-27T10:29:36+08:00">2022-04-27</time>
               </span>
 
           
@@ -225,7 +225,7 @@
 <p>SMB</p>
 <p>//192.168.22.111/shared /home/www/ cifs username=xxx,password=xxx,rw,dir_mode=0777,file_mode=0777 0 0</p>
 <p>NFS</p>
-<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#x73;&#x75;&#113;&#x69;&#115;&#104;&#x75;&#x6f;&#x40;&#52;&#x2e;&#x31;&#48;&#x36;">&#x73;&#x75;&#113;&#x69;&#115;&#104;&#x75;&#x6f;&#x40;&#52;&#x2e;&#x31;&#48;&#x36;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
+<p>172.20.4.106:/home /data/sync nfs username=suqishuo,password=<a href="mailto:&#115;&#x75;&#x71;&#105;&#x73;&#x68;&#117;&#x6f;&#x40;&#x34;&#x2e;&#49;&#x30;&#x36;">&#115;&#x75;&#x71;&#105;&#x73;&#x68;&#117;&#x6f;&#x40;&#x34;&#x2e;&#49;&#x30;&#x36;</a>,rw,dir_mode=0777,file_mode=0777 0 0</p>
 <h1 id="curl-apt-设置代理"><a href="#curl-apt-设置代理" class="headerlink" title="curl,apt 设置代理"></a>curl,apt 设置代理</h1><p>curl -x socks5h://192.168.3.125:9081 -LO <a target="_blank" rel="noopener" href="http://google.com/">http://google.com</a></p>
 <p>sudo apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“ update<br>apt-get -o Acquire::http::proxy=”socks5h://192.168.3.125:9081/“  install xxx</p>
 <h1 id="批量替换文件内容"><a href="#批量替换文件内容" class="headerlink" title="批量替换文件内容"></a>批量替换文件内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/http:\/\/tracker\.m.com/https:\/\/tracker\.m\.com/&#x27;</span> *.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -258,7 +258,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/linxu/" rel="tag"># linxu</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
           </div>
 
         
@@ -267,12 +267,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/one-word-mac-command/" rel="prev" title="一句话笔记：常用mac命令">
-      <i class="fa fa-chevron-left"></i> 一句话笔记：常用mac命令
+    <a href="/one-word-pt/" rel="prev" title="一句话PT笔记">
+      <i class="fa fa-chevron-left"></i> 一句话PT笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/Android%E5%A4%84%E7%90%86dicom%E6%96%87%E4%BB%B6%E8%AE%B0%E5%BD%95/" rel="next" title="Android处理dicom文件记录">
-      Android处理dicom文件记录 <i class="fa fa-chevron-right"></i>
+    <a href="/one-word-mac-command/" rel="next" title="一句话笔记：常用mac命令">
+      一句话笔记：常用mac命令 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -348,20 +348,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

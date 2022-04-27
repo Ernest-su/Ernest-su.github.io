@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ernest-su.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"QENGM5CT4Q","apiKey":"45d39923dd445eff839e23101a0b4bcb","indexName":"prod_NAME","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用Github Actions，我们可以编译，运行测试，还可以签署发布工件 。 但是，如果我们将密钥库上载到公共存储库，这很危险。作为开发人员，我们必须采取一些预防措施，例如不要提交API密钥或密钥库*（使用Github Actions*作为CI并不是这样做的借口。） 那我们怎样才能在仓库中使用github actions 完成编译签署发布工作，同时又保证密钥和密钥口令的安全性呢？ 跟着以下步骤">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Github Actions  完成编译、发布release apk">
+<meta property="og:url" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/index.html">
+<meta property="og:site_name" content="Ernest的Blog">
+<meta property="og:description" content="使用Github Actions，我们可以编译，运行测试，还可以签署发布工件 。 但是，如果我们将密钥库上载到公共存储库，这很危险。作为开发人员，我们必须采取一些预防措施，例如不要提交API密钥或密钥库*（使用Github Actions*作为CI并不是这样做的借口。） 那我们怎样才能在仓库中使用github actions 完成编译签署发布工作，同时又保证密钥和密钥口令的安全性呢？ 跟着以下步骤">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/..%5Cimages%5Cimage-20220426130338684.png">
+<meta property="og:image" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/..%5Cimages%5Cimage-20220426130224297.png">
+<meta property="og:image" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/..%5Cimages%5Cimage-20220425174715402.png">
+<meta property="og:image" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/..%5Cimages%5Cimage-20220426130619781.png">
+<meta property="article:published_time" content="2022-04-25T09:30:55.000Z">
+<meta property="article:modified_time" content="2022-04-27T02:28:06.963Z">
+<meta property="article:author" content="Ernest">
+<meta property="article:tag" content="构建">
+<meta property="article:tag" content="ci">
+<meta property="article:tag" content="Github">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/..%5Cimages%5Cimage-20220426130338684.png">
+
+<link rel="canonical" href="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用Github Actions  完成编译、发布release apk | Ernest的Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ernest的Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个有理想的Android程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ernest-su.github.io/%E4%BD%BF%E7%94%A8Github%20Actions%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E3%80%81%E5%8F%91%E5%B8%83release%20apk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ernest">
+      <meta itemprop="description" content="分享安卓开发，程序员吐槽，程序员的日常生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ernest的Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Github Actions  完成编译、发布release apk
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-25 17:30:55" itemprop="dateCreated datePublished" datetime="2022-04-25T17:30:55+08:00">2022-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-27 10:28:06" itemprop="dateModified" datetime="2022-04-27T10:28:06+08:00">2022-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%84%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">构建</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用<em>Github Actions，</em>我们可以编译，运行测试，还可以<strong>签署发布工件</strong> 。 <strong>但是</strong>，如果我们将密钥库上载到公共存储库，这很<em><strong>危险</strong>。作为开发人员，我们必须采取一些预防措施，例如</em><em>不要提交API密钥或密钥库</em>*<em>（使用</em>Github Actions*作为CI并不是这样做的借口。）</p>
+<p>那我们怎样才能在仓库中使用github actions 完成编译签署发布工作，同时又保证密钥和密钥口令的安全性呢？</p>
+<p>跟着以下步骤，你应该就能明白了。</p>
+<h1 id="创建签名环境"><a href="#创建签名环境" class="headerlink" title="创建签名环境"></a>创建签名环境</h1><p>创建签名环境，主要实现两个目标，一是保护签名文件不被泄露，公共存储库是所有人可读的。二是保证签名文件的密钥密码等信息不被泄露，包括在执行编译、发布apk整个过程的安全。</p>
+<h2 id="创建存储签名文件的私有仓库"><a href="#创建存储签名文件的私有仓库" class="headerlink" title="创建存储签名文件的私有仓库"></a>创建存储签名文件的私有仓库</h2><p>首先，我们在github上创建一个<strong>私有</strong>仓库，为简单起见，我们将其称为<code> keystore</code>。得到的仓库地址是<code>git@github.com:Ernest-su/keystore.git</code></p>
+<p>然后，把仓库clone到本地。<code>git clone git@github.com:Ernest-su/keystore.git</code></p>
+<p>将签名文件放到keystore内.例如，我的签名文件名称是<code>keyfile</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .\keyfile</span><br><span class="line">git commit -m &quot;添加签名文件&quot;</span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>: 在github上新建仓库的时候，github已经把默认分支从以前的<code>master</code>改为了<code>main</code> ,所以上面的命令是<code>git push origin main</code>，而不是之前的<code>git push origin master</code></p>
+<h2 id="添加签名文件仓库为git的子模块"><a href="#添加签名文件仓库为git的子模块" class="headerlink" title="添加签名文件仓库为git的子模块"></a>添加签名文件仓库为git的子模块</h2><p>切换到项目目录，使用以下命令将包含密钥文件的私有存储库添加为子模块，为简单起见，我们将其称为<code> keystore</code>。</p>
+<p><code>git submodule add git@github.com:Ernest-su/keystore.git keystore</code></p>
+<p>这样，我们便拥有了可以在本地进行签名的密钥库，并且因为该仓库是私有仓库，其他人<strong>不会</strong>获取到签名文件。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130338684.png" alt="image-20220426130338684"></p>
+<p>可以看到，项目已经多了一个<code>keystore</code>文件夹，里面有我们的签名文件。因为是作为git的子模块<code>submodule</code> 来添加的，所以提交的时候，项目只会引用子模块的提交信息，不会包含此文件夹。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130224297.png" alt="image-20220426130224297"></p>
+<h2 id="加密的环境变量-Secrets"><a href="#加密的环境变量-Secrets" class="headerlink" title="加密的环境变量 Secrets"></a>加密的环境变量 Secrets</h2><p>为了拥有更<strong>安全的环境</strong>来使用github actions签署apk,我们在项目的设置中做以下配置。</p>
+<p>在项目 <code>Settings -&gt; Secrets-&gt; Actions</code>  中配置加密的环境变量，这里配置的环境变量很安全，有<a target="_blank" rel="noopener" href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">特殊处理</a>，不会在日志中显示。同时也不会传递由 <code>Fork</code> 发起的 <code>Pull Request</code>。</p>
+<p>以下配置，KEY*开头的是签名文件的密码和签名别名，根据上面添加为git子模块的签名文件填入正确的信息。</p>
+<p><img src="..%5Cimages%5Cimage-20220425174715402.png"></p>
+<p><code>TOKEN</code>配置的是github 的 <code>PAT</code>,也就是Personal access tokens，这里就不展开介绍了，可以查阅<a target="_blank" rel="noopener" href="https://docs.github.com/cn/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">官方的说明</a> 这里配置的<code>TOKEN</code>用于Github Actions执行时，拉取私有仓库子模块的签名文件。</p>
+<p><img src="..%5Cimages%5Cimage-20220426130619781.png" alt="image-20220426130619781"></p>
+<h2 id="修改app签名配置"><a href="#修改app签名配置" class="headerlink" title="修改app签名配置"></a>修改app签名配置</h2><p>在<strong>app模块</strong>的<code>build.gradle</code>中调整签名配置。<code>System.getenv</code>读取的是系统环境变量，在GitHub Actions执行时候，读取的是上面<strong>加密的环境变量 Secrets</strong> 中配置的信息。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line">    release &#123;</span><br><span class="line"></span><br><span class="line">        storeFile file(KEYSTORE)</span><br><span class="line"></span><br><span class="line">        storePassword System.getenv(<span class="string">&quot;KEYSTORE_PASSWORD&quot;</span>)</span><br><span class="line"></span><br><span class="line">        keyAlias System.getenv(<span class="string">&quot;KEY_ALIAS&quot;</span>)</span><br><span class="line"></span><br><span class="line">        keyPassword System.getenv(<span class="string">&quot;KEY_PASSWORD&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<strong>项目根目录</strong>的<code>gradle.properties</code>配置以下信息。我们把<code>KEYSTORE</code>直接在这里定义了，而不是通过获取系统环境变量的方式。当然，通过上面定义加密的环境变量Secrets,再用读取系统环境变量的方式，也是ok的。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">KEYSTORE</span>=<span class="string">../keystore/keyfile</span></span><br><span class="line"><span class="comment">#以下配置到环境变量里了,在github actions的脚本中会自动读取</span></span><br><span class="line"><span class="comment"># KEY_ALIAS=System.getenv(&quot;KEY_ALIAS&quot;)</span></span><br><span class="line"><span class="comment"># KEY_PASSWORD=[your key password]</span></span><br><span class="line"><span class="comment"># KEYSTORE_PASSWORD=[your store password]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="配置Github-Actions"><a href="#配置Github-Actions" class="headerlink" title="配置Github Actions"></a>配置Github Actions</h1><p>在项目新建<code>.github\workflows</code>目录，在<code>workflows</code>目录下新建<code>android.yml</code>文件,内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Android</span> <span class="string">CI</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">       <span class="attr">submodules:</span> <span class="string">recursive</span></span><br><span class="line">       <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">set</span> <span class="string">up</span> <span class="string">JDK</span> <span class="number">11</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-java@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">java-version:</span> <span class="string">&#x27;11&#x27;</span></span><br><span class="line">        <span class="attr">distribution:</span> <span class="string">&#x27;temurin&#x27;</span></span><br><span class="line">        <span class="attr">cache:</span> <span class="string">gradle</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Grant</span> <span class="string">execute</span> <span class="string">permission</span> <span class="string">for</span> <span class="string">gradlew</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">gradlew</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">with</span> <span class="string">Gradle</span></span><br><span class="line">      <span class="attr">env:</span> <span class="comment">#  as an environment variable</span></span><br><span class="line">        <span class="attr">KEYSTORE_PASSWORD:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEYSTORE_PASSWORD</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">KEY_ALIAS:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEY_ALIAS</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">KEY_PASSWORD:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.KEY_PASSWORD</span> <span class="string">&#125;&#125;</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">./gradlew</span> <span class="string">assemble</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">binaries</span> <span class="string">to</span> <span class="string">release</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">svenstaro/upload-release-action@v2</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">repo_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">file:</span>  <span class="string">app/build/outputs/apk/release/*.apk</span></span><br><span class="line">        <span class="attr">tag:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">release_name:</span> <span class="string">$&#123;&#123;</span> <span class="string">github.ref</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">overwrite:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">file_glob:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">body:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Github-Actions-触发条件"><a href="#Github-Actions-触发条件" class="headerlink" title="Github Actions 触发条件"></a>Github Actions 触发条件</h2><p>简单说明下配置的含义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    tags:</span><br><span class="line">      - &#x27;*&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>意思是在推送tag到远程仓库时候，触发GitHub Actions。<code>&#39;*&#39;</code> 表示推送所有的tag都会触发，可以改为<code>&#39;v*&#39;</code>,表示推送了<code>v</code>开头的tag才触发。如果希望是在推送到特定分支时候触发，如<code>release</code>，则可以这样配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches: [ release ]</span><br></pre></td></tr></table></figure>
+
+<p>或需要推送到<code>master</code>分支时候触发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches: [ master ]</span><br></pre></td></tr></table></figure>
+
+<p>但是需要注意,如果<code>master</code>分支是默认分支，且是私有仓库，会浪费掉GitHub Actions的运行时间额度。公共仓库和自托管运行器免费使用 GitHub Actions。 对于私有仓库，每个 GitHub 帐户可获得一定数量的免费记录和存储。<a target="_blank" rel="noopener" href="https://docs.github.com/cn/billing/managing-billing-for-github-actions/managing-your-spending-limit-for-github-actions">关于额度的说明</a></p>
+<h2 id="Github-Actions-的子模块配置"><a href="#Github-Actions-的子模块配置" class="headerlink" title="Github Actions 的子模块配置"></a>Github Actions 的子模块配置</h2><pre><code>- uses: actions/checkout@v3
+  with:
+   submodules: recursive
+   token: $&#123;&#123; secrets.TOKEN &#125;&#125;
+</code></pre>
+<p>只有加了<code>  submodules: recursive</code>以及<code>   token: $&#123;&#123; secrets.TOKEN &#125;&#125;</code>才会在构建时候拉取到私有仓库的子模块。</p>
+<h2 id="读取Actions-加密系统环境变量"><a href="#读取Actions-加密系统环境变量" class="headerlink" title="读取Actions 加密系统环境变量"></a>读取Actions 加密系统环境变量</h2><pre><code>- name: Build with Gradle
+  env: #  as an environment variable
+    KEYSTORE_PASSWORD: $&#123;&#123; secrets.KEYSTORE_PASSWORD &#125;&#125;
+    KEY_ALIAS: $&#123;&#123; secrets.KEY_ALIAS &#125;&#125;
+    KEY_PASSWORD: $&#123;&#123; secrets.KEY_PASSWORD &#125;&#125;
+</code></pre>
+<p>此步骤用于配置解密后的环境变量到系统环境变量中,供<code>gradle</code>脚本使用</p>
+<h2 id="上传apk文件到github-release"><a href="#上传apk文件到github-release" class="headerlink" title="上传apk文件到github release"></a>上传apk文件到github release</h2><pre><code>- name: Upload binaries to release
+  uses: svenstaro/upload-release-action@v2
+  with:
+    repo_token: $&#123;&#123; secrets.GITHUB_TOKEN &#125;&#125;
+    file:  app/build/outputs/apk/release/*.apk
+    tag: $&#123;&#123; github.ref &#125;&#125;
+    release_name: $&#123;&#123; github.ref &#125;&#125;
+    overwrite: true
+    file_glob: true
+    body: &quot;&quot;
+</code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ernest 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9E%84%E5%BB%BA/" rel="tag"># 构建</a>
+              <a href="/tags/ci/" rel="tag"># ci</a>
+              <a href="/tags/Github/" rel="tag"># Github</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/curl%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%B9%B6%E8%AE%BE%E7%BD%AE%E6%AD%A3%E7%A1%AE%E5%90%8D%E7%A7%B0/" rel="prev" title="curl批量下载并设置正确名称">
+      <i class="fa fa-chevron-left"></i> curl批量下载并设置正确名称
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E7%BA%A2%E9%98%9F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%20%E6%94%BB%E9%98%B2%20%20%E5%AD%A6%E4%B9%A0%20%E5%B7%A5%E5%85%B7%20%E5%88%86%E6%9E%90%20%E7%A0%94%E7%A9%B6%E8%B5%84%E6%96%99%E6%B1%87%E6%80%BB/" rel="next" title="红队渗透测试 攻防  学习 工具 分析 研究资料汇总">
+      红队渗透测试 攻防  学习 工具 分析 研究资料汇总 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AD%BE%E5%90%8D%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">创建签名环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6%E7%9A%84%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">创建存储签名文件的私有仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6%E4%BB%93%E5%BA%93%E4%B8%BAgit%E7%9A%84%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="nav-number">1.2.</span> <span class="nav-text">添加签名文件仓库为git的子模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-Secrets"><span class="nav-number">1.3.</span> <span class="nav-text">加密的环境变量 Secrets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9app%E7%AD%BE%E5%90%8D%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">修改app签名配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEGithub-Actions"><span class="nav-number">2.</span> <span class="nav-text">配置Github Actions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Actions-%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">Github Actions 触发条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Actions-%E7%9A%84%E5%AD%90%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">Github Actions 的子模块配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96Actions-%E5%8A%A0%E5%AF%86%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">读取Actions 加密系统环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0apk%E6%96%87%E4%BB%B6%E5%88%B0github-release"><span class="nav-number">2.4.</span> <span class="nav-text">上传apk文件到github release</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ernest"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ernest</p>
+  <div class="site-description" itemprop="description">分享安卓开发，程序员吐槽，程序员的日常生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/uploads/wechat-qcode.jpeg" title="wechat → &#x2F;uploads&#x2F;wechat-qcode.jpeg"><i class="wechat fa-fw"></i>wechat</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">桂ICP备14005380号 </a>
+      <img src="/uploads/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502000179" rel="noopener" target="_blank">粤公网安备 44030502000179号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ernest</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
