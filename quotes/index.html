@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名言便签</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #urlInput {
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 2px solid white;
+            font-size: 14px;
+            width: 300px;
+            max-width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        #urlInput::placeholder {
+            color: #999;
+        }
+
+        .upload-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid white;
+            padding: 10px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: transparent;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .sticky-note {
+            background: linear-gradient(135deg, #ffd89b 0%, #ffe5b4 100%);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.2),
+                -2px -2px 5px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 50px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-8px) rotate(2deg);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                -2px -2px 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .sticky-note.pink {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+        }
+
+        .sticky-note.green {
+            background: linear-gradient(135deg, #baffc9 0%, #baf3db 100%);
+        }
+
+        .sticky-note.blue {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .sticky-note.purple {
+            background: linear-gradient(135deg, #e0c3fc 0%, #f8bbff 100%);
+        }
+
+        .sticky-note.orange {
+            background: linear-gradient(135deg, #ffa500 0%, #ffb84d 100%);
+        }
+
+        .quote-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-weight: 500;
+            min-height: 60px;
+        }
+
+        .quote-author {
+            font-size: 13px;
+            color: #666;
+            text-align: right;
+            font-style: italic;
+            border-top: 1px dashed rgba(0, 0, 0, 0.2);
+            padding-top: 10px;
+        }
+
+        .quote-author::before {
+            content: '— ';
+        }
+
+        .error {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .quotes-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ 每日名言 ✨</h1>
+            <p>让名言陪伴你的每一天</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="loading" id="loading">加载中...</div>
+            <div class="error" id="error"></div>
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            加载失败，请检查 URL 是否正确
+        </div>
+
+        <div class="quotes-grid" id="quotesGrid">
+        </div>
+    </div>
+
+    <script>
+        const colors = ['yellow', 'pink', 'green', 'blue', 'purple', 'orange'];
+        let colorIndex = 0;
+
+        // 直接加载的 URL - 修改这里来改变数据源
+        const MARKDOWN_URL = quotes.md';
+
+        async function loadQuotes() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const emptyState = document.getElementById('emptyState');
+            const quotesGrid = document.getElementById('quotesGrid');
+
+            loading.style.display = 'block';
+            error.style.display = 'none';
+
+            try {
+                const response = await fetch(MARKDOWN_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP 错误! 状态: ${response.status}`);
+                }
+                const text = await response.text();
+                const quotes = parseMarkdown(text);
+
+                if (quotes.length === 0) {
+                    throw new Error('未找到任何名言');
+                }
+
+                emptyState.style.display = 'none';
+                colorIndex = 0;
+                quotes.forEach(quote => {
+                    const note = createStickyNote(quote);
+                    quotesGrid.appendChild(note);
+                });
+
+                error.style.display = 'none';
+            } catch (err) {
+                console.error(err);
+                error.textContent = '加载失败: ' + err.message;
+                error.style.display = 'block';
+                emptyState.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function parseMarkdown(text) {
+            const quotes = [];
+            const lines = text.split('\n');
+            let currentQuote = null;
+
+            for (let line of lines) {
+                line = line.trim();
+
+                if (line.startsWith('##')) {
+                    continue;
+                } else if (line.startsWith('>')) {
+                    if (currentQuote !== null && currentQuote.author) {
+                        quotes.push(currentQuote);
+                    }
+                    currentQuote = {
+                        text: line.substring(1).trim(),
+                        author: '未知'
+                    };
+                } else if (line.startsWith('-') && currentQuote !== null) {
+                    currentQuote.author = line.substring(1).trim();
+                } else if (line === '' && currentQuote !== null) {
+                    if (currentQuote.text) {
+                        quotes.push(currentQuote);
+                        currentQuote = null;
+                    }
+                }
+            }
+
+            if (currentQuote !== null && currentQuote.text) {
+                quotes.push(currentQuote);
+            }
+
+            return quotes;
+        }
+
+        function createStickyNote(quote) {
+            const note = document.createElement('div');
+            const colorClass = colors[colorIndex % colors.length];
+            colorIndex++;
+
+            note.className = `sticky-note ${colorClass}`;
+            note.innerHTML = `
+                <div class="quote-text">${escapeHtml(quote.text)}</div>
+                <div class="quote-author">${escapeHtml(quote.author)}</div>
+            `;
+
+            return note;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 页面加载完成后自动加载名言
+        window.addEventListener('load', loadQuotes);
+    </script>
+</body>
+</html>
